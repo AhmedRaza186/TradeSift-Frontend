@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 const NAV_LINKS = [
-  { label: 'solutions', hasChevron: true },
+  { label: 'Solutions', hasChevron: true },
   { label: 'Resources', hasChevron: true },
   { label: 'About', hasChevron: false },
   { label: 'Contact', hasChevron: false },
@@ -22,9 +22,9 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <header className="relative z-20 w-full">
-      <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-[31px] lg:px-20">
-        <a href="#top" className="flex items-center gap-[11px] text-white">
+    <header className="relative z-20 w-full mb-3">
+      <nav className="mx-auto flex max-w-360 items-center justify-between px-6 py-7.5 lg:px-20">
+        <a href="#top" className="flex items-center gap-2.75 text-white">
           <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M27.88 0c.36 1.89-.1 3.98-1.23 5.56-1.12 1.55-2.98 2.45-4.87 2.78-.8.14-1.62.16-2.43.16-2.96-.01-4.75-.25-7.33 1.56-.74.52-1.46 1.14-2.06 1.81-.19.22-.86 1.12-1.02 1.2l-.03-.03c.02-.14.15-.36.2-.53.37-1.1.81-2.44.08-3.5-.31-.44-1-.78-1.56-.84-1.93-.2-4.39.25-5.98 1.37-.42.3-.82.66-1.15 1.04-.12.14-.34.49-.45.57-.1-.06 0-.65 0-.78.12-1.42.62-2.83 1.4-4.03C2.65 4.53 4.62 3.39 6.77 2.97c.25-.05 1.11-.19 1.37-.19.4.08 1.2.02 1.64.03.25.01 1.89.04 2 .03.21-.07 2.1.01 2.43.02l4.2.06c3.15.03 7.08.17 9.19-2.53.1-.12.19-.24.28-.36Z"
@@ -38,7 +38,7 @@ const Navbar = () => {
           <span className="font-geist text-xl font-medium">TradeSift</span>
         </a>
 
-        <div className="hidden items-center gap-[28px] lg:flex">
+        <div className="hidden items-center gap-7 lg:flex">
           {NAV_LINKS.map((link) => (
             <a
               key={link.label}
@@ -51,16 +51,16 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div className="hidden items-center gap-[17px] lg:flex">
+        <div className="hidden items-center gap-4.25 lg:flex font-inter">
           <a
             href="#signin"
-            className="rounded-[18px] border border-white/50 bg-[rgba(3,4,5,0.2)] px-3 py-2 text-base font-medium leading-[22px] tracking-[0.64px] text-white transition hover:bg-white/10"
+            className="rounded-[18px] border border-white/50 bg-[rgba(3,4,5,0.2)] px-4 py-2 text-base font-medium text-[14px] leading-5.5 tracking-[4%] text-white transition hover:bg-white/10"
           >
             SIGN IN
           </a>
           <a
             href="#get-started"
-            className="rounded-[18px] bg-[#FAF0CB] px-3 py-2 text-base font-medium leading-[22px] tracking-[0.64px] text-black transition hover:bg-white"
+            className="rounded-[18px] bg-[#FAF0CB] px-3 py-2 text-base font-medium text-[14px] leading-5.5 tracking-[0.64px] text-black transition hover:bg-white"
           >
             GET STARTED
           </a>

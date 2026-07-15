@@ -1,0 +1,59 @@
+import { MODULE_CARDS } from "./constants";
+   import { MoveRight } from "lucide-react";
+
+const ModuleCards = () => {
+   return (
+      <div className="mx-auto mt-16 grid max-w-[1160px] grid-cols-1 gap-5 lg:grid-cols-3">
+         {MODULE_CARDS.map((card) => {
+            const Icon = card.icon;
+
+            return (
+               <div
+                  key={card.key}
+                  className={`relative flex min-h-[284px] flex-col justify-between gap-8 overflow-hidden rounded-[24px] border border-black/10 bg-[#040509] p-8  ${card.span}`}
+               >
+                  <div className="absolute -right-12 -top-12 h-[220px] w-[220px] rounded-full bg-[#F2902F]/10 blur-[90px]" />
+
+                  <div className="relative flex flex-col gap-3 z-2 ">
+                     <div className="flex items-center gap-2  text-[#F2902F]">
+                        <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-black">
+                           <svg
+                              width="16"
+                              height="17"
+                              viewBox="0 0 16 17"
+                              fill="none"
+                           >
+                              <Icon />
+                           </svg>
+                        </span>
+
+                        <span className="text-[12px] font-medium text-[#F2902F]">{card.tag}</span>
+                     </div>
+
+                     <h2 className="font-geist text-[36px] font-semibold leading-none tracking-[-1px] text-white">{card.title}</h2>
+                  </div>
+
+                  <div className="mt-3 max-w-[360px] text-[15px] leading-[1.45] text-white/70">
+                     <p>{card.description}</p>
+
+                     <a href={`#${card.title.toLowerCase()}`} className="mt-8 inline-flex items-center gap-2 text-[15px] font-medium text-white">
+                        Learn more
+                        <MoveRight />
+                     </a>
+                  </div>
+                   {/* Gradient */}
+  <div className={`absolute ${card.gradientClass} `}>
+    <img
+      src={card.gradient}
+      alt=""
+      className="h-full w-full object-cover z-1 left-[40px] relative"
+    />
+  </div>
+               </div>
+            );
+         })}
+      </div>
+   );
+};
+
+export default ModuleCards;

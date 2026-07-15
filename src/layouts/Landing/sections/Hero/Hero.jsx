@@ -1,5 +1,6 @@
 import Navbar from '../../../../components/navbar/navbar'
 import DashboardPreview from '../../../../components/dashboard/DashboardPreview'
+import heroImage from '../../../../../assets/hero-image.png'
 
 const Hero = () => {
   return (
@@ -9,7 +10,7 @@ const Hero = () => {
     >
       <Navbar />
 
-      <div className="relative mx-auto max-w-[1440px] px-6 pb-[90px] pt-[31px] lg:px-20">
+      <div className="relative mx-auto max-w-[1440px] px-6 pb-[90px] pt-[50px] lg:px-20">
         <div className="relative flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:gap-4">
           <div className="flex max-w-[590px] flex-col items-start gap-[22px]">
             <span className="rounded-full border border-white/15 px-5 py-2 text-sm text-white/80">
@@ -34,9 +35,9 @@ const Hero = () => {
             </a>
           </div>
 
-          <div className="pointer-events-none relative -mx-6 mt-4 w-[calc(100%+3rem)] lg:absolute lg:right-[-160px] lg:top-1/2 lg:mx-0 lg:mt-0 lg:w-[848px] lg:-translate-y-1/2">
+          <div className="pointer-events-none relative -mx-6 mt-4 w-[calc(100%+3rem)] lg:absolute lg:right-[-80px] lg:top-1/2 lg:mx-0 lg:mt-0 lg:w-[848px] lg:-translate-y-1/2">
             <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/56d3d6db3f5ffd57ddfcf669ccbb51e85db57dd1?width=1697"
+              src={heroImage}
               alt="Global trade network illustration showing a plane, cargo ship and truck connected by glowing routes"
               className="w-full select-none"
               loading="lazy"
