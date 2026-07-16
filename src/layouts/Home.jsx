@@ -3,6 +3,7 @@ import Features from './Landing/sections/Features/Features'
 import Benefits from './Landing/sections/Benefits/Benefits'
 import CTA from './Landing/sections/CTA/CTA'
 import Footer from './Landing/sections/Footer/Footer'
+import FAQ from './Landing/sections/FAQs/FAQ'
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Hero />
       <Features />
       <Benefits />
+      <FAQ/>
       <CTA />
       <Footer />
     </div>

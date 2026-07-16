@@ -1,7 +1,7 @@
 const BENEFITS = [
   {
-    title: 'Agentic Workflows',
-    description: 'AI agents draft, verify and submit filings end-to-end.',
+    title: 'AI Document Validation',
+    description: 'Automatically analyze invoices, packing lists, COO, and trade documents with AI-powered accuracy.',
     viewBox: '0 0 30 30',
     size: 30,
     icon: (
@@ -22,7 +22,7 @@ const BENEFITS = [
   },
   {
     title: 'Compliance First',
-    description: 'SBP, FBR and WeBOC-native controls out of the box.',
+    description: 'Identify customs risks, regulatory gaps, and compliance issues before submission.',
     viewBox: '0 0 15 15',
     size: 15,
     icon: (
@@ -35,8 +35,8 @@ const BENEFITS = [
     ),
   },
   {
-    title: 'Deep Integrations',
-    description: 'ERPs, banks, brokers and carriers — pre-wired.',
+    title: 'Trade System Integrations',
+    description: 'Connect with ERP systems, customs workflows, brokers, and enterprise trade operations.',
     viewBox: '0 0 15 15',
     size: 15,
     icon: (
@@ -52,8 +52,8 @@ const BENEFITS = [
     ),
   },
   {
-    title: 'Live Analytics',
-    description: 'Duty exposure, cycle time and audit risk in real time.',
+    title: 'Actionable Insights',
+    description: 'Monitor compliance performance, document health, and trade risks through intelligent analytics.',
     viewBox: '0 0 15 15',
     size: 15,
     icon: (
@@ -67,26 +67,44 @@ const BENEFITS = [
     ),
   },
   {
-    title: 'Multi-Country',
-    description: 'Pakistan first. UAE, KSA and Bangladesh rolling out.',
+    title: 'PSW & WeBOC Ready',
+    description: 'Designed to support Pakistan Single Window (PSW) and WeBOC workflows with AI-assisted preparation.',
     viewBox: '0 0 16 16',
     size: 16,
     icon: (
-      <>
-        <path
-          d="M2.4 6H13.6M2.4 10H13.6M2 8C2 8.78793 2.15519 9.56815 2.45672 10.2961C2.75825 11.0241 3.20021 11.6855 3.75736 12.2426C4.31451 12.7998 4.97595 13.2417 5.7039 13.5433C6.43185 13.8448 7.21207 14 8 14C8.78793 14 9.56815 13.8448 10.2961 13.5433C11.0241 13.2417 11.6855 12.7998 12.2426 12.2426C12.7998 11.6855 13.2417 11.0241 13.5433 10.2961C13.8448 9.56815 14 8.78793 14 8C14 6.4087 13.3679 4.88258 12.2426 3.75736C11.1174 2.63214 9.5913 2 8 2C6.4087 2 4.88258 2.63214 3.75736 3.75736C2.63214 4.88258 2 6.4087 2 8Z"
-          stroke="white"
-          strokeWidth="1.33333"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path d="M7.66702 2C6.54391 3.79974 5.94849 5.87858 5.94849 8C5.94849 10.1214 6.54391 12.2003 7.66702 14M8.33368 2C9.45679 3.79974 10.0522 5.87858 10.0522 8C10.0522 10.1214 9.45679 12.2003 8.33368 14" stroke="white" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
-      </>
+       <svg
+    className="w-5 h-5"
+    fill="none"
+    stroke="white"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.8"
+      d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.8"
+      d="M14 3v5h5"
+    />
+    <circle cx="8" cy="16" r="1.2" fill="white" />
+    <circle cx="16" cy="16" r="1.2" fill="white" />
+    <circle cx="12" cy="12" r="1.2" fill="white" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+      d="M8 16l4-4 4 4"
+    />
+  </svg>
     ),
   },
   {
     title: 'Sub-Second Filing',
-    description: 'GD submission in under a second from validated data.',
+    description: 'Reduce manual effort and accelerate customs declarations with intelligent document processing.',
     viewBox: '0 0 16 16',
     size: 16,
     icon: (
@@ -100,7 +118,7 @@ const BENEFITS = [
 
 const Benefits = () => {
   return (
-    <section className="bg-white px-6 py-24 lg:px-20">
+    <section className="bg-white px-6 py-24 lg:px-20 -mt-[90px]">
       <div className="mx-auto max-w-[1280px]">
   
 
@@ -112,7 +130,7 @@ const Benefits = () => {
           {BENEFITS.map((benefit) => (
             <div
               key={benefit.title}
-              className="flex flex-col gap-[18px] rounded-lg border-[0.4px] border-black/80 px-[21px] py-[18px]"
+              className="flex flex-col gap-[18px] rounded-lg border-[0.4px] border-gray-400/80 px-[21px] py-[18px]"
             >
               <div className="flex flex-col items-start gap-4">
                 <span className="flex h-[30px] w-[30px] items-center justify-center overflow-hidden rounded-lg bg-black">
@@ -122,7 +140,7 @@ const Benefits = () => {
                 </span>
                 <h4 className="font-geist text-2xl font-medium leading-none text-black">{benefit.title}</h4>
               </div>
-              <p className="text-lg leading-[1.13] text-black/60">{benefit.description}</p>
+              <p className="text-lg leading-[1.13] -tracking-tight text-black/60">{benefit.description}</p>
             </div>
           ))}
         </div>
