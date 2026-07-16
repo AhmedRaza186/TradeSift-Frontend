@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion'
+import { fadeUp, collapse, staggerContainer } from '../../../../animations/variants'
 
 // Mock data based on your UI
 const categories = ['General', 'Integrations', 'Compliance', 'Pricing'];
@@ -162,10 +164,18 @@ export default function FAQ() {
   // Filter FAQs based on selected tab
   const filteredFaqs = faqData.filter(faq => faq.category === activeCategory);
 
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <section className="w-full mx-auto px-4 py-16 font-sans bg-white flex-col justify-center">
       {/* Header Section */}
-      <div className="text-center mb-8">
+      <motion.div
+        initial={shouldReduceMotion ? 'visible' : 'hidden'}
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeUp}
+        className="text-center mb-8"
+      >
         <h2 className="text-5xl font-bold text-black tracking-tight mb-4">
           Frequently asked questions
         </h2>
@@ -176,10 +186,16 @@ export default function FAQ() {
             Chat to our friendly team!
           </a>
         </p>
-      </div>
+      </motion.div>
 
       {/* Category Tabs */}
-      <div className="flex justify-center gap-2 mb-12">
+      <motion.div
+        initial={shouldReduceMotion ? 'visible' : 'hidden'}
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeUp}
+        className="flex justify-center gap-2 mb-12"
+      >
         {categories.map((category) => (
           <button
             key={category}
@@ -193,15 +209,22 @@ export default function FAQ() {
             {category}
           </button>
         ))}
-      </div>
+      </motion.div>
 
       {/* Accordion / FAQ List */}
-      <div className="space-y-4 max-w-5xl w-5xl justify-self-center">
+      <motion.div
+        initial={shouldReduceMotion ? 'visible' : 'hidden'}
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={staggerContainer}
+        className="space-y-4 max-w-5xl w-5xl justify-self-center"
+      >
         {filteredFaqs.map((faq) => {
           const isOpen = openFaqId === faq.id;
           return (
-            <div
+            <motion.div
               key={faq.id}
+              variants={fadeUp}
               className="border border-gray-200 rounded-2xl bg-white overflow-hidden transition-all"
             >
               <button
@@ -232,19 +255,24 @@ export default function FAQ() {
               </button>
 
               {/* Expandable Content Block */}
-              <div
-                className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                  isOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
-                }`}
+              <motion.div
+                variants={collapse}
+                animate={isOpen ? 'visible' : 'hidden'}
+                className="overflow-hidden"
               >
-                <div className="pl-[76px] pr-6 pb-6 text-gray-500 text-sm leading-relaxed max-w-3xl">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: isOpen ? 1 : 0 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="pl-[76px] pr-6 pb-6 text-gray-500 text-sm leading-relaxed max-w-3xl"
+                >
                   {faq.answer}
-                </div>
-              </div>
-            </div>
+                </motion.div>
+              </motion.div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { motion, useReducedMotion } from 'framer-motion'
 import DashboardPreview from "../../../../components/dashboard/DashboardPreview";
-import Tabs from "./Tabs";
+import Tabs from "./tabs"
 import ModuleCards from "./ModuleCards";
+import { fadeLeft, fadeRight } from '../../../../animations/variants'
 
 const Features = () => {
+  const shouldReduceMotion = useReducedMotion()
   const [activeTab, setActiveTab] = useState("TaxReconcile");
 
   return (
@@ -26,7 +29,13 @@ const Features = () => {
           </p>
         </div>
 
-        <div className="mx-auto mt-24 flex max-w-[751px] flex-col items-center gap-8 text-center">
+        <motion.div
+          initial={shouldReduceMotion ? 'visible' : 'hidden'}
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={fadeLeft}
+          className="mx-auto mt-24 flex max-w-[751px] flex-col items-center gap-8 text-center"
+        >
           <h3 className="font-geist text-[40px] font-bold leading-[0.9] tracking-[-1.4px] text-white sm:text-[54px] lg:text-[68px]">
             Everything in one place
           </h3>
@@ -40,11 +49,17 @@ const Features = () => {
             activeTab={activeTab}
             setActiveTab={setActiveTab}
           />
-        </div>
+        </motion.div>
 
-        <div className="relative z-2 mx-auto mt-16 max-w-6xl">
+        <motion.div
+          initial={shouldReduceMotion ? 'visible' : 'hidden'}
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={fadeRight}
+          className="relative z-2 mx-auto mt-16 max-w-6xl"
+        >
           <DashboardPreview theme="light" />
-        </div>
+        </motion.div>
       </section>
 
       {/* Module Cards */}

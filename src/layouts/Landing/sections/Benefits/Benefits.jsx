@@ -1,3 +1,6 @@
+import { motion } from 'framer-motion'
+import { fadeUp, staggerContainer } from '../../../../animations/variants'
+
 const BENEFITS = [
   {
     title: 'AI Document Validation',

@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { fadeDown } from '../../animations/variants'
 
 const NAV_LINKS = [
   { label: 'Solutions', hasChevron: true },
@@ -20,10 +22,16 @@ const Chevron = () => (
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const shouldReduceMotion = useReducedMotion()
 
   return (
     <header className="relative z-20 w-full mb-3">
-      <nav className="mx-auto flex max-w-360 items-center justify-between px-6 py-7.5 lg:px-20">
+      <motion.nav
+        initial={shouldReduceMotion ? 'visible' : 'hidden'}
+        animate="visible"
+        variants={fadeDown}
+        className="mx-auto flex max-w-360 items-center justify-between px-6 py-7.5 lg:px-20"
+      >
         <a href="#top" className="flex items-center gap-2.75 text-white">
           <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -77,10 +85,17 @@ const Navbar = () => {
           <span className="h-0.5 w-6 bg-white" />
           <span className="h-0.5 w-6 bg-white" />
         </button>
-      </nav>
+      </motion.nav>
 
-      {menuOpen && (
-        <div className="mx-6 mb-6 flex flex-col gap-4 rounded-2xl border border-white/10 bg-black/60 p-6 backdrop-blur lg:hidden">
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-6 mb-6 flex flex-col gap-4 rounded-2xl border border-white/10 bg-black/60 p-6 backdrop-blur lg:hidden"
+          >
           {NAV_LINKS.map((link) => (
             <a
               key={link.label}
@@ -104,8 +119,9 @@ const Navbar = () => {
               GET STARTED
             </a>
           </div>
-        </div>
+        </motion.div>
       )}
+      </AnimatePresence>
     </header>
   )
 }

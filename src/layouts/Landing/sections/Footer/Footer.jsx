@@ -1,3 +1,6 @@
+import { motion } from 'framer-motion'
+import { fadeInOpacityOnly } from '../../../../animations/variants'
+
 const FOOTER_COLUMNS = [
   {
     title: 'Modules',
@@ -19,7 +22,13 @@ const FOOTER_COLUMNS = [
 
 const Footer = () => {
   return (
-    <footer className="border-t border-black/10 bg-black px-6 py-16 lg:px-20">
+    <motion.footer
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={fadeInOpacityOnly}
+      className="border-t border-black/10 bg-black px-6 py-16 lg:px-20"
+    >
       <div className="mx-auto flex max-w-[1280px] flex-col gap-12 lg:flex-row lg:justify-between">
         <div className="flex flex-col gap-4 lg:max-w-xs">
           <a href="#top" className="flex items-center gap-2 text-white">
@@ -59,7 +68,7 @@ const Footer = () => {
         <a href="" className="transition hover:text-white">Secuirty</a>
        </div>
       </div>
-    </footer>
+    </motion.footer>
   )
 }
 
