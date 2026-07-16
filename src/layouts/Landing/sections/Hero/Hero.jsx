@@ -10,7 +10,7 @@ const Hero = () => {
   return (
     <section
       id="top"
-      className="relative overflow-hidden bg-[#040509] bg-[linear-gradient(180deg,#040509_0%,#040509_48.68%,#040509_86.44%,#313E6F_97.03%,rgba(255,255,255,0.5)_99.9%)]"
+      className="relative overflow-hidden pa bg-[#040509] bg-[linear-gradient(180deg,#040509_0%,#040509_48.68%,#040509_86.44%,#313E6F_97.03%,rgba(255,255,255,0.5)_99.9%)]"
     >
       <Navbar />
 

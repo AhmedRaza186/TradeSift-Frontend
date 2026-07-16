@@ -325,25 +325,25 @@ const DashboardPreview = ({ theme = 'dark' }) => {
   const isDark = theme === 'dark'
   const palette = isDark
     ? {
-        shell: 'bg-[#090909]',
-        sidebar: 'bg-[#111111] border-white/[0.06]',
-        header: 'bg-[#090909] border-white/[0.06]',
-        card: 'bg-[#171717] border-white/[0.06]',
-        border: 'border-white/[0.06]',
-        text: 'text-white',
-        muted: 'text-[#A1A1AA]',
-        input: 'bg-[#171717] border-white/[0.06]',
-      }
+      shell: 'bg-[#090909]',
+      sidebar: 'bg-[#111111] border-white/[0.06]',
+      header: 'bg-[#090909] border-white/[0.06]',
+      card: 'bg-[#171717] border-white/[0.06]',
+      border: 'border-white/[0.06]',
+      text: 'text-white',
+      muted: 'text-[#A1A1AA]',
+      input: 'bg-[#171717] border-white/[0.06]',
+    }
     : {
-        shell: 'bg-[#F7F7F7]',
-        sidebar: 'bg-white border-[#E8E8E8]',
-        header: 'bg-[#F7F7F7] border-[#E8E8E8]',
-        card: 'bg-white border-[#E8E8E8]',
-        border: 'border-[#E8E8E8]',
-        text: 'text-[#111111]',
-        muted: 'text-[#666666]',
-        input: 'bg-white border-[#E8E8E8]',
-      }
+      shell: 'bg-[#F7F7F7]',
+      sidebar: 'bg-white border-[#E8E8E8]',
+      header: 'bg-[#F7F7F7] border-[#E8E8E8]',
+      card: 'bg-white border-[#E8E8E8]',
+      border: 'border-[#E8E8E8]',
+      text: 'text-[#111111]',
+      muted: 'text-[#666666]',
+      input: 'bg-white border-[#E8E8E8]',
+    }
   const navMuted = isDark ? '#A1A1AA' : '#666666'
 
   return (
@@ -364,9 +364,8 @@ const DashboardPreview = ({ theme = 'dark' }) => {
           {NAV_ITEMS.map((item) => (
             <div
               key={item.key}
-              className={`flex items-center gap-3 rounded-full px-4 py-2.5 text-sm font-medium ${
-                item.active ? 'bg-brand/10 text-brand' : `${palette.muted}`
-              }`}
+              className={`flex items-center gap-3 rounded-full px-4 py-2.5 text-sm font-medium ${item.active ? 'bg-brand/10 text-brand' : `${palette.muted}`
+                }`}
             >
               <Icon>{item.icon(item.active ? '#F2902F' : navMuted)}</Icon>
               <span className="flex-1 text-left">{item.label}</span>

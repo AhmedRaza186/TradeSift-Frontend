@@ -31,11 +31,11 @@ const Footer = () => {
     >
       <div className="mx-auto flex max-w-[1280px] flex-col gap-12 lg:flex-row lg:justify-between">
         <div className="flex flex-col gap-4 lg:max-w-xs">
-          <a href="#top" className="flex items-center gap-2 text-white">
-            <img className="flex h-8 w-8 items-center justify-center text-white" src="../../../../../assets/Logo.png">
+          <a href="#top" className="flex justify-center gap-2 text-white">
+            <img className="flex h-20 w-26 flex object-cotain justify-self-center text-white" src="../../../../../assets/LogoWithText.png">
 
             </img>
-            <span className="font-geist text-lg font-bold tracking-tight">TradeSift</span>
+            {/* <span className="font-geist text-lg font-bold tracking-tight">TradeSift</span> */}
           </a>
           <p className="text-sm text-white/50">
             The AI operating system for trade — customs, tax and logistics, unified.
@@ -61,7 +61,7 @@ const Footer = () => {
       </div>
 
       <div className="mx-auto mt-12 max-w-[1280px] border-t border-white/10 pt-6 text-sm text-white/40 flex justify-between">
-       <div className="font-inter text-1xl"> © {new Date().getFullYear()} TradeSift.ai. All rights reserved.</div>
+       <div className="font-inter text-1xl"> © {new Date().getFullYear()} TradeSift. All rights reserved.</div>
        <div className="flex gap-6 ">
         <a href="" className="transition hover:text-white">Privacy</a>
         <a href="" className="transition hover:text-white">Terms</a>
