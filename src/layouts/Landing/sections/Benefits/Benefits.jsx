@@ -102,15 +102,7 @@ const Benefits = () => {
   return (
     <section className="bg-white px-6 py-24 lg:px-20">
       <div className="mx-auto max-w-[1280px]">
-        <div className="flex flex-col gap-4">
-          <h2 className="font-geist text-[36px] font-bold leading-none text-black sm:text-[52px] lg:text-[68px]">
-            Unified Trade Operations
-          </h2>
-          <p className="max-w-[785px] font-geist text-base leading-[1.25] text-[#03030A]">
-            From customs verification to tax recovery and logistics operations, TradeSift centralizes
-            Pakistan&apos;s trade workflows into a single AI-powered workspace.
-          </p>
-        </div>
+  
 
         <h3 className="mt-20 font-geist text-[32px] font-bold leading-none text-black sm:text-[46px] lg:text-[68px]">
           Enterprise-grade by default.

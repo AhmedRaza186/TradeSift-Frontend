@@ -48,7 +48,7 @@ const Features = () => {
       </section>
 
       {/* Module Cards */}
-      <section className="relative bottom-[750px] bg-white px-6 pt-[950px] pb-24 lg:px-20">
+      <section className="relative bottom-[750px] bg-white px-6 pt-[850px] pb-24 lg:px-20">
         <div className="mx-auto flex max-w-[820px] flex-col items-center gap-5 text-center">
           <h3 className="font-geist text-[40px] font-bold leading-[0.9] tracking-[-1.4px] text-black sm:text-[54px] lg:text-[68px]">
             Unified Trade Operations
