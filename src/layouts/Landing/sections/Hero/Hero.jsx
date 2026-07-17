@@ -72,7 +72,7 @@ const Hero = () => {
             <img
               src={heroImage}
               alt="TradeSift Hero"
-              className=" w-[140%] max-w-[700px] h-auto object-contain opacity-15 sm:w-[120%] sm:opacity-20 md:w-[100%] md:max-w-[760px] md:opacity-30 lg:w-full lg:max-w-none lg:opacity-100 select-none"
+              className=" w-[140%] max-w-[700px] h-auto object-contain opacity-100 sm:w-[120%] sm:opacity-20 md:w-[100%] md:max-w-[760px] md:opacity-30 lg:w-full lg:max-w-none lg:opacity-100 select-none"
             />
           </motion.div>
         </div>
