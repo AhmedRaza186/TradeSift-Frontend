@@ -47,7 +47,7 @@ const ModuleCards = () => {
                   </div>
 
                   <div className="mt-3 max-w-[360px] text-[15px] leading-[1.45] text-white/70">
-                     <p>{card.description}</p>
+                     <p className="relative z-2">{card.description}</p>
 
                      <a href={`#${card.title.toLowerCase()}`} className="mt-8 flex  gap-2  items-center font-medium text-white hover:text-[#F2902F] hover:translate-x-[9px] transition-transform ease-in-out 3s delay-75 z-3 relative">
                         Learn more
