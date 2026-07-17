@@ -7,6 +7,7 @@
   --font-geist-mono: "Geist Mono", "JetBrains Mono", monospace;
   --color-brand: #f2902f;
   --color-brand-dark: #e06d09;
+   --breakpoint-x-sm: 480px;
 }
 
 body {

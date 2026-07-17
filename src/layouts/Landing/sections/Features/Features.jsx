@@ -64,7 +64,7 @@ const Features = () => {
           className="relative z-2 mx-auto mt-16 max-w-6xl"
         >
           <div className="absolute left-1/2 -translate-x-1/2 sm:bottom-[80%] lg:bottom-[70%] w-[130%] lg:w-[140%] h-[12%] bg-[linear-gradient(180deg,#060402_0%,#060402_8.68%,#060402_6.44%,#b45309_67.03%,rgba(251,191,36,1)_99.9%)]
-z-0 pointer-events-none"></div>
+z-0 pointer-events-none md:block hidden"></div>
           <DashboardPreview theme="light" />
         </motion.div>
       </section>
@@ -74,7 +74,7 @@ z-0 pointer-events-none"></div>
         id="features-light"
         data-nav-theme="light"
         data-nav-variant="glass"
-        className="-mt-[600px] bg-white px-6 pt-[850px] pb-24 lg:px-20 "
+        className="md:-mt-[600px] sm:-mt-[400px] x-sm:-mt-[300px] bg-white px-6 pt-[400px] sm:pt-[850px] pb-24 lg:px-20 "
       >
         <div className="mx-auto flex max-w-[820px] flex-col items-center gap-5 text-center">
           <h3 className="font-geist text-[40px] font-bold leading-[0.9] tracking-[-1.4px] text-black sm:text-[54px] lg:text-[68px]">
