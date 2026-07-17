@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion'
-import { fadeUp, collapse, staggerContainer } from '../../../../animations/variants'
+import { fadeUp, collapse, staggerContainer } from '../../../../animations/variants.js'
 
 // Mock data based on your UI
 const categories = ['General', 'Integrations', 'Compliance', 'Pricing'];
@@ -155,7 +155,11 @@ const faqData = [
 
 export default function FAQ() {
   const [activeCategory, setActiveCategory] = useState('General');
-  const [openFaqId, setOpenFaqId] = useState(1); // Default first one open like the screenshot
+  console.log(activeCategory);
+  
+  const [openFaqId, setOpenFaqId] = useState(1);
+  console.log(openFaqId);
+  
 
   const toggleFaq = (id) => {
     setOpenFaqId(openFaqId === id ? null : id);
@@ -163,15 +167,18 @@ export default function FAQ() {
 
   // Filter FAQs based on selected tab
   const filteredFaqs = faqData.filter(faq => faq.category === activeCategory);
+  
 
   const shouldReduceMotion = useReducedMotion()
+    console.log(activeCategory);
+console.log(filteredFaqs);  
 
   return (
     <section
       id="faq"
       data-nav-theme="light"
       data-nav-variant="glass"
-      className="w-full mx-auto px-4 py-16 font-sans bg-white flex-col justify-center"
+      className="w-full px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-24 font-sans bg-white flex-col justify-center"
     >
       {/* Header Section */}
       <motion.div
@@ -181,10 +188,10 @@ export default function FAQ() {
         variants={fadeUp}
         className="text-center mb-8"
       >
-        <h2 className="text-5xl font-bold text-black tracking-tight mb-4">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black mb-4">
           Frequently asked questions
         </h2>
-        <p className="text-gray-500 text-lg">
+        <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-gray-500 sm:text-base lg:text-lg">
           These are the most commonly asked questions about TradeSift. Can't find
           what you're looking for?{' '}
           <a href="#" className="text-gray-900 underline font-medium hover:text-black">
@@ -199,33 +206,31 @@ export default function FAQ() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={fadeUp}
-        className="flex justify-center gap-2 mb-12"
+        className="mb-10 overflow-x-auto scrollbar-hid"
       >
+        <motion.div className="mx-auto flex w-max gap-2 px-1">
+
         {categories.map((category) => (
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
-            className={`px-5 py-2 text-sm font-medium rounded-full border transition-all duration-200 ${
-              activeCategory === category
-                ? 'bg-black text-white border-black'
-                : 'bg-white text-gray-800 border-gray-200 hover:border-gray-400'
-            }`}
+            className={`flex-shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 ${activeCategory === category ? "bg-black text-white border-black" : "bg-white border-gray-200 text-gray-800 hover:border-gray-400" } `}
           >
             {category}
           </button>
         ))}
+        </motion.div>
       </motion.div>
 
       {/* Accordion / FAQ List */}
       <motion.div
-        initial={shouldReduceMotion ? 'visible' : 'hidden'}
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={staggerContainer}
-        className="space-y-4 max-w-5xl w-5xl justify-self-center"
+        className="mx-auto w-full max-w-5xl space-y-4"
       >
         {filteredFaqs.map((faq) => {
           const isOpen = openFaqId === faq.id;
+          console.log(isOpen);
+          console.log(faq.id);
+          
           return (
             <motion.div
               key={faq.id}
@@ -280,4 +285,5 @@ export default function FAQ() {
       </motion.div>
     </section>
   );
+
 }

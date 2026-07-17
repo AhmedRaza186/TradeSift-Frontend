@@ -9,7 +9,7 @@ import { NavThemeProvider } from '../context/NavThemeContext'
 const Home = () => {
   return (
     <NavThemeProvider>
-      <div>
+      <div className='overflow-hidden'>
         <Hero />
         <Features />
         <Benefits />

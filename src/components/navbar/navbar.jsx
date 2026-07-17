@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { fadeDown } from '../../animations/variants'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavTheme } from '../../hooks/useNavTheme'
 
 const NAV_LINKS = [
@@ -26,6 +26,13 @@ const Navbar = () => {
   const { theme, variant } = useNavTheme()
   const shouldReduceMotion = useReducedMotion()
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => {
+        document.body.style.overflow = ''
+    }
+}, [menuOpen])
+
   // Determine dynamic classes based on variant and theme
   const getNavClasses = () => {
     if (variant === 'glass') {
@@ -44,28 +51,13 @@ const Navbar = () => {
         initial={shouldReduceMotion ? 'visible' : 'hidden'}
         animate="visible"
         variants={fadeDown}
-        className={`
-          mx-auto
-          flex
-          h-20
-          max-w-[1440px]
-          items-center
-          justify-between
-          px-5
-          sm:px-6
-          lg:px-10
-          xl:px-16
-          transition-all
-          duration-300
-          ease-out
-          ${getNavClasses()}
+        className={` mx-auto flex h-20 max-w-360  overflow-hidden items-center justify-between px-5 sm:px-6 lg:px-10 xl:px-16 transition-all duration-300 ease-out ${getNavClasses()}
         `}
       >
         <a
           href="#top"
-          className={`flex items-center gap-2.75 transition-colors duration-300 ${
-            theme === 'dark' ? 'text-white' : 'text-black'
-          }`}
+          className={`flex items-center gap-2.75 transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-black'
+            }`}
         >
           <img src="../../../assets/Logo.png" alt="" className="w-15 h-15 object-contain" />
           <span className="font-geist text-xl font-bold pt-1.5">TradeSift</span>
@@ -76,11 +68,10 @@ const Navbar = () => {
             <a
               key={link.label}
               href={`#${link.label.toLowerCase()}`}
-              className={`flex items-center gap-1.5 text-base font-medium tracking-wide transition-colors duration-300 ${
-                theme === 'dark'
-                  ? 'text-white/90 hover:text-white'
-                  : 'text-black/70 hover:text-black'
-              }`}
+              className={`flex items-center gap-1.5 text-base font-medium tracking-wide transition-colors duration-300 ${theme === 'dark'
+                ? 'text-white/90 hover:text-white'
+                : 'text-black/70 hover:text-black'
+                }`}
             >
               {link.label}
               {link.hasChevron && <Chevron />}
@@ -91,21 +82,19 @@ const Navbar = () => {
         <div className="hidden items-center gap-4.25 lg:flex font-inter">
           <a
             href="#signin"
-            className={`rounded-[18px] border px-4 py-2 text-base font-medium text-[14px] leading-5.5 tracking-[4%] transition-all duration-300 ${
-              theme === 'dark'
-                ? 'border-white/50 bg-[rgba(3,4,5,0.2)] text-white hover:bg-white/10'
-                : 'border-black/30 bg-black/5 text-black hover:bg-black/10'
-            }`}
+            className={`rounded-[18px] border px-4 py-2 text-base font-medium text-[14px] leading-5.5 tracking-[4%] transition-all duration-300 ${theme === 'dark'
+              ? 'border-white/50 bg-[rgba(3,4,5,0.2)] text-white hover:bg-white/10'
+              : 'border-black/30 bg-black/5 text-black hover:bg-black/10'
+              }`}
           >
             SIGN IN
           </a>
           <a
             href="#get-started"
-            className={`rounded-[18px] px-3 py-2 text-base font-medium text-[14px] leading-5.5 tracking-[0.64px] transition-all duration-300 ${
-              theme === 'dark'
-                ? 'bg-[#FAF0CB] text-black hover:bg-white'
-                : 'bg-black text-white hover:bg-gray-800'
-            }`}
+            className={`rounded-[18px] px-3 py-2 text-base font-medium text-[14px] leading-5.5 tracking-[0.64px] transition-all duration-300 ${theme === 'dark'
+              ? 'bg-[#FAF0CB] text-black hover:bg-white'
+              : 'bg-black text-white hover:bg-gray-800'
+              }`}
           >
             GET STARTED
           </a>
@@ -114,13 +103,31 @@ const Navbar = () => {
         <button
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
+
           className="flex flex-col gap-1.5 p-2 lg:hidden"
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
         >
-          <span className={`h-0.5 w-6 transition-colors duration-300 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
-          <span className={`h-0.5 w-6 transition-colors duration-300 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
-          <span className={`h-0.5 w-6 transition-colors duration-300 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
+
+          <motion.span className={`h-0.5 w-6 transition-colors duration-300 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}
+            animate={{
+              rotate: menuOpen ? 45 : 0,
+              y: menuOpen ? 8 : 0,
+            }}
+          />
+
+          <motion.span className={`h-0.5 w-6 transition-colors duration-300 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}
+            animate={{
+              opacity: menuOpen ? 0 : 1,
+            }}
+          />
+
+          <motion.span className={`h-0.5 w-6 transition-colors duration-300 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}
+            animate={{
+              rotate: menuOpen ? -45 : 0,
+              y: menuOpen ? -8 : 0,
+            }}
+          />
         </button>
       </motion.nav>
 
@@ -131,19 +138,18 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className={`mx-6 mb-6 flex flex-col gap-4 rounded-2xl border p-6 backdrop-blur lg:hidden transition-all duration-300 ${
-              theme === 'dark'
-                ? 'border-white/10 bg-black/60 text-white'
-                : 'border-black/15 bg-white/95 text-black shadow-lg'
-            }`}
+            className={`absolute left-0 right-0 top-[88px] mx-4 flex flex-col gap-4 rounded-2xl border p-6 backdrop-blur lg:hidden transition-all duration-300 ${theme === 'dark'
+              ? 'border-white/10 bg-black/60 text-white'
+              : 'border-black/15 bg-white/95 text-black shadow-lg'
+              }`}
           >
             {NAV_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={`#${link.label.toLowerCase()}`}
-                className={`text-base font-medium transition-colors duration-300 ${
-                  theme === 'dark' ? 'text-white/90 hover:text-white' : 'text-black/80 hover:text-black'
-                }`}
+                onClick={() => setMenuOpen(false)}
+                className={`text-base font-medium transition-colors duration-300 ${theme === 'dark' ? 'text-white/90 hover:text-white' : 'text-black/80 hover:text-black'
+                  }`}
               >
                 {link.label}
               </a>
@@ -151,21 +157,19 @@ const Navbar = () => {
             <div className="flex flex-col gap-3 pt-2">
               <a
                 href="#signin"
-                className={`rounded-full border px-3 py-2 text-center text-base font-medium transition-all duration-300 ${
-                  theme === 'dark'
-                    ? 'border-white/50 bg-black/20 text-white hover:bg-white/10'
-                    : 'border-black/30 bg-black/5 text-black hover:bg-black/10'
-                }`}
+                className={`rounded-full border px-3 py-2 text-center text-base font-medium transition-all duration-300 ${theme === 'dark'
+                  ? 'border-white/50 bg-black/20 text-white hover:bg-white/10'
+                  : 'border-black/30 bg-black/5 text-black hover:bg-black/10'
+                  }`}
               >
                 SIGN IN
               </a>
               <a
                 href="#get-started"
-                className={`rounded-full px-3 py-2 text-center text-base font-medium transition-all duration-300 ${
-                  theme === 'dark'
-                    ? 'bg-[#FAF0CB] text-black hover:bg-white'
-                    : 'bg-black text-white hover:bg-gray-800'
-                }`}
+                className={`rounded-full px-3 py-2 text-center text-base font-medium transition-all duration-300 ${theme === 'dark'
+                  ? 'bg-[#FAF0CB] text-black hover:bg-white'
+                  : 'bg-black text-white hover:bg-gray-800'
+                  }`}
               >
                 GET STARTED
               </a>
