@@ -121,7 +121,12 @@ const BENEFITS = [
 
 const Benefits = () => {
   return (
-    <section className="bg-white px-6 py-24 lg:px-20 -mt-[90px]">
+    <section
+      id="benefits"
+      data-nav-theme="light"
+      data-nav-variant="glass"
+      className="bg-white px-6 py-24 lg:px-20 -mt-[90px]"
+    >
       <div className="mx-auto max-w-[1280px]">
   
 

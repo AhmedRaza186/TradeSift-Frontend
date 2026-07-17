@@ -4,17 +4,20 @@ import Benefits from './Landing/sections/Benefits/Benefits'
 import CTA from './Landing/sections/CTA/CTA'
 import Footer from './Landing/sections/Footer/Footer'
 import FAQ from './Landing/sections/FAQs/FAQ'
+import { NavThemeProvider } from '../context/NavThemeContext'
 
 const Home = () => {
   return (
-    <div>
-      <Hero />
-      <Features />
-      <Benefits />
-      <FAQ/>
-      <CTA />
-      <Footer />
-    </div>
+    <NavThemeProvider>
+      <div>
+        <Hero />
+        <Features />
+        <Benefits />
+        <FAQ/>
+        <CTA />
+        <Footer />
+      </div>
+    </NavThemeProvider>
   )
 }
 

@@ -12,7 +12,12 @@ const Features = () => {
   return (
     <>
       {/* Features Section */}
-      <section className="bg-[#040509] px-6 py-24 lg:px-20">
+      <section
+        id="features-dark"
+        data-nav-theme="dark"
+        data-nav-variant="glass"
+        className="bg-[#040509] px-6 py-24 lg:px-20"
+      >
         <div className="mx-auto flex max-w-[820px] flex-col items-center gap-5 text-center">
           <span className="font-mono text-xs uppercase tracking-[2.4px] text-white">
             The Problem
@@ -63,7 +68,12 @@ const Features = () => {
       </section>
 
       {/* Module Cards */}
-      <section className="-mt-[750px] bg-white px-6 pt-[850px] pb-24 lg:px-20">
+      <section
+        id="features-light"
+        data-nav-theme="light"
+        data-nav-variant="glass"
+        className="-mt-[750px] bg-white px-6 pt-[850px] pb-24 lg:px-20"
+      >
         <div className="mx-auto flex max-w-[820px] flex-col items-center gap-5 text-center">
           <h3 className="font-geist text-[40px] font-bold leading-[0.9] tracking-[-1.4px] text-black sm:text-[54px] lg:text-[68px]">
             Unified Trade Operations

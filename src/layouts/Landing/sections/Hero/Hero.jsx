@@ -4,13 +4,16 @@ import DashboardPreview from '../../../../components/dashboard/DashboardPreview'
 import heroImage from '../../../../../assets/hero-image.png'
 import { fadeUp, scaleIn, staggerContainer } from '../../../../animations/variants'
 
+
 const Hero = () => {
   const shouldReduceMotion = useReducedMotion()
 
   return (
     <section
       id="top"
-      className="relative overflow-hidden pa bg-[#040509] bg-[linear-gradient(180deg,#040509_0%,#040509_48.68%,#040509_86.44%,#313E6F_97.03%,rgba(255,255,255,0.5)_99.9%)]"
+      data-nav-theme="dark"
+      data-nav-variant="transparent"
+      className="relative overflow-hidden  lg:pt-40 bg-[#040509] bg-[linear-gradient(180deg,#040509_0%,#040509_48.68%,#040509_86.44%,#313E6F_97.03%,rgba(255,255,255,0.5)_99.9%)]"
     >
       <Navbar />
 

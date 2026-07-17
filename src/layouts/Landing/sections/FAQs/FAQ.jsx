@@ -167,7 +167,12 @@ export default function FAQ() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <section className="w-full mx-auto px-4 py-16 font-sans bg-white flex-col justify-center">
+    <section
+      id="faq"
+      data-nav-theme="light"
+      data-nav-variant="glass"
+      className="w-full mx-auto px-4 py-16 font-sans bg-white flex-col justify-center"
+    >
       {/* Header Section */}
       <motion.div
         initial={shouldReduceMotion ? 'visible' : 'hidden'}

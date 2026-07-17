@@ -1,6 +1,7 @@
-import { useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { fadeDown } from '../../animations/variants'
+import { useState } from 'react'
+import { useNavTheme } from '../../hooks/useNavTheme'
 
 const NAV_LINKS = [
   { label: 'Solutions', hasChevron: true },
@@ -22,20 +23,52 @@ const Chevron = () => (
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { theme, variant } = useNavTheme()
   const shouldReduceMotion = useReducedMotion()
 
+  // Determine dynamic classes based on variant and theme
+  const getNavClasses = () => {
+    if (variant === 'glass') {
+      if (theme === 'dark') {
+        return 'mt-3 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.25)]'
+      } else {
+        return 'mt-3 rounded-2xl bg-white/70 backdrop-blur-xl border border-black/5 shadow-[0_10px_40px_rgba(0,0,0,0.08)]'
+      }
+    }
+    return 'bg-transparent border-transparent shadow-none'
+  }
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full ">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full">
       <motion.nav
         initial={shouldReduceMotion ? 'visible' : 'hidden'}
         animate="visible"
         variants={fadeDown}
-        className="mx-auto flex max-w-360 items-center justify-between px-6 py-7.5 lg:px-20"
+        className={`
+          mx-auto
+          flex
+          h-20
+          max-w-[1440px]
+          items-center
+          justify-between
+          px-5
+          sm:px-6
+          lg:px-10
+          xl:px-16
+          transition-all
+          duration-300
+          ease-out
+          ${getNavClasses()}
+        `}
       >
-        <a href="#top" className="flex items-center gap-2.75 text-white ">
-      
-          <img src="../../../assets/Logo.png" alt="" className='w-15 h-15 object-contain'/>
-          <span className="font-geist text-xl font-bold pt-1.5 ">TradeSift</span>
+        <a
+          href="#top"
+          className={`flex items-center gap-2.75 transition-colors duration-300 ${
+            theme === 'dark' ? 'text-white' : 'text-black'
+          }`}
+        >
+          <img src="../../../assets/Logo.png" alt="" className="w-15 h-15 object-contain" />
+          <span className="font-geist text-xl font-bold pt-1.5">TradeSift</span>
         </a>
 
         <div className="hidden items-center gap-7 lg:flex">
@@ -43,7 +76,11 @@ const Navbar = () => {
             <a
               key={link.label}
               href={`#${link.label.toLowerCase()}`}
-              className="flex items-center gap-1.5 text-base font-medium tracking-wide text-white/90 transition hover:text-white"
+              className={`flex items-center gap-1.5 text-base font-medium tracking-wide transition-colors duration-300 ${
+                theme === 'dark'
+                  ? 'text-white/90 hover:text-white'
+                  : 'text-black/70 hover:text-black'
+              }`}
             >
               {link.label}
               {link.hasChevron && <Chevron />}
@@ -54,13 +91,21 @@ const Navbar = () => {
         <div className="hidden items-center gap-4.25 lg:flex font-inter">
           <a
             href="#signin"
-            className="rounded-[18px] border border-white/50 bg-[rgba(3,4,5,0.2)] px-4 py-2 text-base font-medium text-[14px] leading-5.5 tracking-[4%] text-white transition hover:bg-white/10"
+            className={`rounded-[18px] border px-4 py-2 text-base font-medium text-[14px] leading-5.5 tracking-[4%] transition-all duration-300 ${
+              theme === 'dark'
+                ? 'border-white/50 bg-[rgba(3,4,5,0.2)] text-white hover:bg-white/10'
+                : 'border-black/30 bg-black/5 text-black hover:bg-black/10'
+            }`}
           >
             SIGN IN
           </a>
           <a
             href="#get-started"
-            className="rounded-[18px] bg-[#FAF0CB] px-3 py-2 text-base font-medium text-[14px] leading-5.5 tracking-[0.64px] text-black transition hover:bg-white"
+            className={`rounded-[18px] px-3 py-2 text-base font-medium text-[14px] leading-5.5 tracking-[0.64px] transition-all duration-300 ${
+              theme === 'dark'
+                ? 'bg-[#FAF0CB] text-black hover:bg-white'
+                : 'bg-black text-white hover:bg-gray-800'
+            }`}
           >
             GET STARTED
           </a>
@@ -73,9 +118,9 @@ const Navbar = () => {
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
         >
-          <span className="h-0.5 w-6 bg-white" />
-          <span className="h-0.5 w-6 bg-white" />
-          <span className="h-0.5 w-6 bg-white" />
+          <span className={`h-0.5 w-6 transition-colors duration-300 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
+          <span className={`h-0.5 w-6 transition-colors duration-300 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
+          <span className={`h-0.5 w-6 transition-colors duration-300 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`} />
         </button>
       </motion.nav>
 
@@ -86,33 +131,47 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-6 mb-6 flex flex-col gap-4 rounded-2xl border border-white/10 bg-black/60 p-6 backdrop-blur lg:hidden"
+            className={`mx-6 mb-6 flex flex-col gap-4 rounded-2xl border p-6 backdrop-blur lg:hidden transition-all duration-300 ${
+              theme === 'dark'
+                ? 'border-white/10 bg-black/60 text-white'
+                : 'border-black/15 bg-white/95 text-black shadow-lg'
+            }`}
           >
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={`#${link.label.toLowerCase()}`}
-              className="text-base font-medium text-white/90"
-            >
-              {link.label}
-            </a>
-          ))}
-          <div className="flex flex-col gap-3 pt-2">
-            <a
-              href="#signin"
-              className="rounded-full border border-white/50 bg-black/20 px-3 py-2 text-center text-base font-medium text-white"
-            >
-              SIGN IN
-            </a>
-            <a
-              href="#get-started"
-              className="rounded-full bg-[#FAF0CB] px-3 py-2 text-center text-base font-medium text-black"
-            >
-              GET STARTED
-            </a>
-          </div>
-        </motion.div>
-      )}
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={`#${link.label.toLowerCase()}`}
+                className={`text-base font-medium transition-colors duration-300 ${
+                  theme === 'dark' ? 'text-white/90 hover:text-white' : 'text-black/80 hover:text-black'
+                }`}
+              >
+                {link.label}
+              </a>
+            ))}
+            <div className="flex flex-col gap-3 pt-2">
+              <a
+                href="#signin"
+                className={`rounded-full border px-3 py-2 text-center text-base font-medium transition-all duration-300 ${
+                  theme === 'dark'
+                    ? 'border-white/50 bg-black/20 text-white hover:bg-white/10'
+                    : 'border-black/30 bg-black/5 text-black hover:bg-black/10'
+                }`}
+              >
+                SIGN IN
+              </a>
+              <a
+                href="#get-started"
+                className={`rounded-full px-3 py-2 text-center text-base font-medium transition-all duration-300 ${
+                  theme === 'dark'
+                    ? 'bg-[#FAF0CB] text-black hover:bg-white'
+                    : 'bg-black text-white hover:bg-gray-800'
+                }`}
+              >
+                GET STARTED
+              </a>
+            </div>
+          </motion.div>
+        )}
       </AnimatePresence>
     </header>
   )

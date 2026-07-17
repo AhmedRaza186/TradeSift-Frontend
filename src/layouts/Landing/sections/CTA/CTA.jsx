@@ -3,7 +3,12 @@ import { fadeUp } from '../../../../animations/variants'
 
 const CTA = () => {
   return (
-    <section className="bg-white px-6 py-24 lg:px-20">
+    <section
+      id="cta"
+      data-nav-theme="light"
+      data-nav-variant="glass"
+      className="bg-white px-6 py-24 lg:px-20"
+    >
       <motion.div
         initial="hidden"
         whileInView="visible"

@@ -23,6 +23,9 @@ const FOOTER_COLUMNS = [
 const Footer = () => {
   return (
     <motion.footer
+      id="footer"
+      data-nav-theme="dark"
+      data-nav-variant="glass"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
