@@ -74,7 +74,7 @@ z-0 pointer-events-none md:block hidden"></div>
         id="features-light"
         data-nav-theme="light"
         data-nav-variant="glass"
-        className="md:-mt-[600px] sm:-mt-[400px] x-sm:-mt-[300px] bg-white px-6 pt-[400px] sm:pt-[850px] pb-24 lg:px-20 "
+        className="md:-mt-[600px] sm:-mt-[400px] x-sm:-mt-[200px] bg-white px-6 pt-[300px] sm:pt-[700px] pb-24 lg:px-20 "
       >
         <div className="mx-auto flex max-w-[820px] flex-col items-center gap-5 text-center">
           <h3 className="font-geist text-[40px] font-bold leading-[0.9] tracking-[-1.4px] text-black sm:text-[54px] lg:text-[68px]">
