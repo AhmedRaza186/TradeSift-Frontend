@@ -2,6 +2,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { fadeDown } from '../../animations/variants'
 import { useEffect, useState } from 'react'
 import { useNavTheme } from '../../hooks/useNavTheme'
+import Logo from '../../../assets/Logo.png'
 
 const NAV_LINKS = [
   { label: 'Solutions', hasChevron: true },
@@ -59,7 +60,7 @@ const Navbar = () => {
           className={`flex items-center gap-2.75 transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-black'
             }`}
         >
-          <img src="../../../assets/Logo.png" alt="" className="w-15 h-15 object-contain" />
+          <img src={Logo} alt="" className="w-15 h-15 object-contain" />
           <span className="font-geist text-xl font-bold pt-1.5">TradeSift</span>
         </a>
 

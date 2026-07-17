@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { fadeInOpacityOnly } from '../../../../animations/variants.js'
+import Logo from '../../../../../assets/LogoWithText.png'
+
 
 const FOOTER_COLUMNS = [
   {
@@ -38,7 +40,7 @@ const Footer = () => {
         <div className="flex flex-col items-center text-center gap-5 lg:max-w-xs lg:items-start lg:text-left">
           <a href="#top">
             <img
-              src="../../../../../assets/LogoWithText.png"
+              src={Logo}
               alt="TradeSift"
               className="h-14 sm:h-16 lg:h-18 w-auto object-contain"
             />
