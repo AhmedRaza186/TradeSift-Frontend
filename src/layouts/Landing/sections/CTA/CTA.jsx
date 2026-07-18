@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion'
 import { fadeUp } from '../../../../animations/variants'
+import { Link } from 'react-router'
+const MotionLink = motion(Link)
+
 
 const CTA = () => {
   return (
@@ -29,22 +32,22 @@ const CTA = () => {
         
         {/* CTA Buttons */}
         <div className="flex flex-col items-center gap-3 sm:flex-row">
-          <motion.a
-            href="#get-started"
+          <MotionLink
+            to="/signup"
             whileHover={{ y: -3 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="rounded-full bg-black px-8 py-3.5 text-xs font-bold tracking-wider text-white transition-all duration-200 hover:bg-black/95"
           >
             GET STARTED
-          </motion.a>
-          <motion.a
-            href="#signin"
+          </MotionLink>
+          <MotionLink
+            to="/login"
             whileHover={{ y: -3 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="rounded-full border border-gray-200 bg-white px-8 py-3.5 text-xs font-semibold tracking-wider text-black transition-all duration-200 hover:bg-gray-50 hover:border-gray-300"
           >
             SIGN IN
-          </motion.a>
+          </MotionLink>
         </div>
       </motion.div>
     </section>

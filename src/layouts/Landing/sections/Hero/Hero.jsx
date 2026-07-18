@@ -3,7 +3,9 @@ import Navbar from '../../../../components/navbar/navbar'
 import DashboardPreview from '../../../../components/dashboard/DashboardPreview'
 import heroImage from '../../../../../assets/hero-image.png'
 import { fadeUp, scaleIn, staggerContainer } from '../../../../animations/variants'
+import { Link } from 'react-router-dom'
 
+const MotionLink = motion(Link)
 
 const Hero = () => {
   const shouldReduceMotion = useReducedMotion()
@@ -51,15 +53,15 @@ const Hero = () => {
               filing errors with autonomous AI workflows.
             </motion.p>
 
-            <motion.a
-              href="#get-started"
+            <MotionLink
+              to="/signup"
               variants={fadeUp}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
               className="mt-2 inline-flex items-center gap-2 rounded-full bg-[#FAF0CB] px-8 py-4 text-base font-semibold text-black transition hover:bg-white"
             >
               SEE IN ACTION
               <span aria-hidden="true">&rarr;</span>
-            </motion.a>
+            </MotionLink>
           </motion.div>
 
           <motion.div

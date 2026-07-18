@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
-import Home from './layouts/Home'
+import Home from './layouts/Landing/Home'
 import ComingSoonModal from './components/modal/ComingSoonModal'
+import AppRoutes from './routes/Routes'
 
 const STORAGE_KEY = 'tradesift_preview_shown'
 
@@ -25,7 +26,7 @@ const App = () => {
   return (
     <>
       <ComingSoonModal isOpen={modalOpen} onClose={handleClose} />
-      <Home/>
+      <AppRoutes />
     </>
   )
 }

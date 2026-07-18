@@ -3,6 +3,7 @@ import { fadeDown } from '../../animations/variants'
 import { useEffect, useState } from 'react'
 import { useNavTheme } from '../../hooks/useNavTheme'
 import Logo from '../../../assets/Logo.png'
+import { Link } from 'react-router-dom'
 
 const NAV_LINKS = [
   { label: 'Solutions', hasChevron: true },
@@ -55,14 +56,14 @@ const Navbar = () => {
         className={` mx-auto flex h-20 max-w-360  overflow-hidden items-center justify-between px-5 sm:px-6 lg:px-10 xl:px-16 transition-all duration-300 ease-out ${getNavClasses()}
         `}
       >
-        <a
-          href="#top"
+        <Link
+          to="/"
           className={`flex items-center gap-2.75 transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-black'
             }`}
         >
           <img src={Logo} alt="" className="w-15 h-15 object-contain" />
           <span className="font-geist text-xl font-bold pt-1.5">TradeSift</span>
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-7 lg:flex">
           {NAV_LINKS.map((link) => (
@@ -81,24 +82,24 @@ const Navbar = () => {
         </div>
 
         <div className="hidden items-center gap-4.25 lg:flex font-inter">
-          <a
-            href="#signin"
+          <Link
+            to="/login"
             className={`rounded-[18px] border px-4 py-2 text-base font-medium text-[14px] leading-5.5 tracking-[4%] transition-all duration-300 ${theme === 'dark'
               ? 'border-white/50 bg-[rgba(3,4,5,0.2)] text-white hover:bg-white/10'
               : 'border-black/30 bg-black/5 text-black hover:bg-black/10'
               }`}
           >
             SIGN IN
-          </a>
-          <a
-            href="#get-started"
+          </Link>
+          <Link
+            to="/signup"
             className={`rounded-[18px] px-3 py-2 text-base font-medium text-[14px] leading-5.5 tracking-[0.64px] transition-all duration-300 ${theme === 'dark'
               ? 'bg-[#FAF0CB] text-black hover:bg-white'
               : 'bg-black text-white hover:bg-gray-800'
               }`}
           >
             GET STARTED
-          </a>
+          </Link>
         </div>
 
         <button
