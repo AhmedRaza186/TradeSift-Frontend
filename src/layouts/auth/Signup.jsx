@@ -63,10 +63,10 @@ export default function Signup() {
       if (el.disabled || el.tabIndex === -1) return false;
 
       // Inputs, selects and textareas
-      if ((el.tagName === 'INPUT'  && el.type !== 'checkbox')|| (["SELECT", "TEXTAREA"].includes(el.tagName)) )
+      if ((el.tagName === 'INPUT' && el.type !== 'checkbox') || (["SELECT", "TEXTAREA"].includes(el.tagName)))
         return true;
 
-      
+
       // Only include submit button
       if (el.tagName === "BUTTON" && el.type === "submit")
         return true;
@@ -197,6 +197,23 @@ export default function Signup() {
         </div>
         <div className="flex flex-1 items-center justify-center lg:block">
           <div className="mx-auto w-full max-w-[440px] space-y-4 lg:mx-0 lg:ml-[12%] mt-6 sm:mt-12 lg:mt-14">
+
+            <MotionLink
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              to="/"
+              className="z-10 flex h-12 items-center gap-3 pb-10 lg:hidden"
+            >
+              <img
+                src={Logo}
+                alt=""
+                className="h-10 w-auto object-contain"
+              />
+              <span className="font-geist pt-1.5 text-l font-bold mt-4">
+                TradeSift
+              </span>
+            </MotionLink>
 
             {/* Header */}
             <header className="space-y-2 flex-col">

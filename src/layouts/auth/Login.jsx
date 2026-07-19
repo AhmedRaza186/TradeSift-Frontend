@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 
 import bgGradient from '../../../assets/authPageGradient.png';
 import Logo from '../../../assets/Logo.png';
+import LogoWithText from '../../../assets/LogoWithTextBlack.png';
 
 const MotionLink = motion.create(Link);
 
@@ -119,7 +120,7 @@ export default function Login() {
     >
 
 
-       <section className="hidden lg:flex lg:w-[42%] xl:w-[45%]">
+      <section className="hidden lg:flex lg:w-[42%] xl:w-[45%]">
         <div className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden bg-black px-8 py-8 lg:px-10 lg:py-10 xl:px-14 xl:py-14 2xl:px-16 2xl:py-16 text-white select-none">
 
           {/* Background Gradient */}
@@ -230,8 +231,27 @@ export default function Login() {
           </p>
         </div>
 
+
+
         <div className="flex flex-1 items-center justify-center lg:block">
           <div className="mx-auto mt-6 w-full max-w-[440px] space-y-4 sm:mt-12 lg:ml-[12%] lg:mt-14 lg:mx-0">
+            {/* Logo */}
+            <MotionLink
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              to="/"
+              className="z-10 flex h-12 items-center gap-3 pb-10 lg:hidden"
+            >
+              <img
+                src={Logo}
+                alt=""
+                className="h-10 w-auto object-contain"
+              />
+              <span className="font-geist pt-1.5 text-l font-bold mt-4">
+                TradeSift
+              </span>
+            </MotionLink>
 
             {/* Header */}
             <motion.header
@@ -291,7 +311,7 @@ export default function Login() {
                 </div>
               </motion.div>
 
-                  {/* Password */}
+              {/* Password */}
               <motion.div
                 variants={fadeItem}
                 initial="hidden"
@@ -374,7 +394,7 @@ export default function Login() {
               </motion.button>
 
             </form>
-             
+
             {/* Divider */}
             <motion.div
               variants={fadeItem}
