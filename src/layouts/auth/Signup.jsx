@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { User, Building2, Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router';
 import bgGradient from '../../../assets/authPageGradient.png'
 import Logo from '../../../assets/Logo.png'
+import { motion } from "framer-motion";
 
+const MotionLink = motion.create(Link)
 
 export default function Signup() {
 
@@ -15,6 +17,84 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const fadeUp = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
+
+  const stagger = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  }
+
+  const fadeItem = {
+    hidden: {
+      opacity: 0,
+      y: 25
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1]
+      }
+    }
+  }
+  const handleKeyDown = (e) => {
+    const form = e.target.form;
+    const elements = Array.from(form.elements).filter((el) => {
+      if (el.disabled || el.tabIndex === -1) return false;
+
+      // Inputs, selects and textareas
+      if ((el.tagName === 'INPUT'  && el.type !== 'checkbox')|| (["SELECT", "TEXTAREA"].includes(el.tagName)) )
+        return true;
+
+      
+      // Only include submit button
+      if (el.tagName === "BUTTON" && el.type === "submit")
+        return true;
+
+      return false;
+    });
+
+    const index = elements.indexOf(e.target);
+
+    switch (e.key) {
+      case "Enter":
+      case "ArrowDown":
+        e.preventDefault();
+        if (index < elements.length - 1) {
+          elements[index + 1].focus();
+        } else {
+          handleSubmit(e)
+        }
+        break;
+
+      case "ArrowUp":
+        e.preventDefault();
+        if (index > 0) {
+          elements[index - 1].focus();
+        }
+        break;
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,7 +111,11 @@ export default function Signup() {
   };
 
   return (
-    <div className='flex h-screen flex-col lg:flex-row overflow-hidden"'>
+    <motion.div
+      variants={fadeUp}
+      initial="hidden"
+      animate="visible"
+      className='flex h-screen flex-col lg:flex-row overflow-hidden"'>
 
 
       <section className='hidden lg:flex lg:w-[42%] xl:w-[45%]'>
@@ -47,25 +131,40 @@ export default function Signup() {
           </div>
 
           {/* Top: Logo Container (Empty Placeholder) */}
-          <Link to='/' className="z-10 flex h-12 items-center gap-3">
+          <MotionLink
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: .6 }}
+
+            to='/' className="z-10 flex h-12 items-center gap-3">
             <img src={Logo} alt="" className='object-contain w-auto h-10' />
             <span className="font-geist text-xl font-bold pt-1.5">TradeSift</span>
-          </Link>
+          </MotionLink>
 
           {/* Middle: Main Content */}
-          <main className="z-10 my-auto max-w-[540px] space-y-4 pt-8 pb-16">
-            <h1 className="font-geist text-4xl font-bold leading-[1.1] tracking-tight text-white lg:text-[42px] xl:text-[46px] 2xl:text-[56px]">
+          <motion.main
+            variants={stagger}
+            initial="hidden"
+            animate="visible"
+            className="z-10 my-auto max-w-[540px] space-y-4 pt-8 pb-16">
+            <motion.h1
+              variants={fadeItem}
+              className="font-geist text-4xl font-bold leading-[1.1] tracking-tight text-white lg:text-[42px] xl:text-[46px] 2xl:text-[56px]">
               AI-Native <br />
               Operating System <br />
               for <span className="text-amber-500">Trade.</span>
-            </h1>
+            </motion.h1>
 
-            <div className="space-y-4">
-              <p className="text-base sm:text-[16px] text-neutral-400 font-normal leading-relaxed">
+            <motion.div
+              variants={fadeItem}
+              className="space-y-4">
+              <motion.p
+                variants={fadeItem}
+                className="text-base sm:text-[16px] text-neutral-400 font-normal leading-relaxed">
                 Automate customs verification, recover tax credits,
                 track shipments, and manage tenders from one
                 intelligent platform.
-              </p>
+              </motion.p>
 
               {/* Orange Accent Divider Line */}
               <div className="h-[2px] w-12 bg-amber-500 rounded-full" />
@@ -73,8 +172,8 @@ export default function Signup() {
               <p className="text-sm sm:text-base text-neutral-400 font-normal leading-relaxed max-w-[400px]">
                 Built for customs brokers, importers and enterprise teams.
               </p>
-            </div>
-          </main>
+            </motion.div>
+          </motion.main>
 
           {/* Bottom: Footer Layout */}
           <footer className="z-10 space-y-4 text-xs font-normal text-neutral-500 tracking-wide">
@@ -123,13 +222,14 @@ export default function Signup() {
                   </label>
 
                   <input
+                    onKeyDown={handleKeyDown}
                     id="firstName"
                     type="text"
                     required
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     placeholder="John"
-                    className="w-full rounded-xl border border-neutral-200 px-4 py-2 text-sm outline-none transition placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400"
+                    className="transition-all duration-200 hover:border-neutral-400 focus:scale-[1.01] focus:shadow-lg focus:shadow-black/5 w-full rounded-xl border border-neutral-200 px-4 py-2 text-sm outline-none  placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400"
                   />
                 </div>
 
@@ -143,13 +243,14 @@ export default function Signup() {
                   </label>
 
                   <input
+                    onKeyDown={handleKeyDown}
                     id="lastName"
                     type="text"
                     required
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     placeholder="Doe"
-                    className="w-full rounded-xl border border-neutral-200 px-4 py-2 text-sm outline-none transition placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400"
+                    className=" w-full rounded-xl border border-neutral-200 px-4 py-2 text-sm outline-none transition placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400 transition-all duration-200 hover:border-neutral-400 focus:scale-[1.01] focus:shadow-lg focus:shadow-black/5"
                   />
                 </div>
               </div>
@@ -164,12 +265,13 @@ export default function Signup() {
                 </label>
 
                 <input
+                  onKeyDown={handleKeyDown}
                   id="organization"
                   type="text"
                   value={organizationName}
                   onChange={(e) => setOrganizationName(e.target.value)}
                   placeholder="ABC Imports Pvt Ltd"
-                  className="w-full rounded-xl border border-neutral-200 px-4 py-2 text-sm outline-none transition placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400"
+                  className="w-full rounded-xl border border-neutral-200 px-4 py-2 text-sm outline-non e transition placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400 transition-all duration-200 hover:border-neutral-400 focus:scale-[1.01] focus:shadow-lg focus:shadow-black/5"
                 />
               </div>
 
@@ -181,13 +283,14 @@ export default function Signup() {
                 <div className="relative flex items-center mt-1">
                   <Mail className="absolute left-3.5 h-4 w-4 text-neutral-400" />
                   <input
+                    onKeyDown={handleKeyDown}
                     id="email"
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
-                    className="w-full rounded-xl font-inter border border-neutral-200 py-2 pl-11 pr-4 text-sm outline-none transition placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400 "
+                    className=" w-full rounded-xl font-inter border border-neutral-200 py-2 pl-11 pr-4 text-sm outline-none transition placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400 transition-all duration-200 hover:border-neutral-400 focus:scale-[1.01] focus:shadow-lg focus:shadow-black/5"
                   />
                 </div>
               </div>
@@ -200,22 +303,23 @@ export default function Signup() {
                 <div className="relative flex items-center mt-1">
                   <Lock className="absolute left-3.5 h-4 w-4 text-neutral-400" />
                   <input
+                    onKeyDown={handleKeyDown}
                     id="password"
                     type={showPassword ? 'text' : 'password'}
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="w-full rounded-xl border border-neutral-200 py-2 pl-11 pr-11 text-sm outline-none transition placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400"
+                    className=" w-full rounded-xl border border-neutral-200 py-2 pl-11 pr-11 text-sm outline-none placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400 transition-all duration-200 hover:border-neutral-400 focus:scale-[1.01] focus:shadow-lg focus:shadow-black/5"
                   />
-                  <button
+                  <motion.button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3.5 text-neutral-400 hover:text-neutral-600 focus:outline-none"
                     aria-label="Toggle password visibility"
                   >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </button>
+                  </motion.button >
                 </div>
               </div>
 
@@ -231,16 +335,17 @@ export default function Signup() {
                   <Lock className="absolute left-3.5 h-4 w-4 text-neutral-400" />
 
                   <input
+                    onKeyDown={handleKeyDown}
                     id="confirmPassword"
                     type={showConfirmPassword ? 'text' : 'password'}
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm your password"
-                    className="w-full rounded-xl border border-neutral-200 py-2 pl-11 pr-11 text-sm outline-none transition placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400"
+                    className=" w-full rounded-xl border border-neutral-200 py-2 pl-11 pr-11 text-sm outline-none transition placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-1 focus:ring-neutral-400 transition-all duration-200 hover:border-neutral-400 focus:scale-[1.01] focus:shadow-lg focus:shadow-black/5"
                   />
 
-                  <button
+                  <motion.button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     className="absolute right-3.5 text-neutral-400 transition hover:text-neutral-600"
@@ -251,7 +356,7 @@ export default function Signup() {
                     ) : (
                       <Eye className="h-4 w-4" />
                     )}
-                  </button>
+                  </motion.button >
                 </div>
               </div>
 
@@ -260,23 +365,27 @@ export default function Signup() {
                 <label className="flex items-center gap-2 text-[13px] font-medium text-neutral-800 cursor-pointer">
                   <input
                     type="checkbox"
-                    className="h-4 w-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-900 accent-neutral-900"
+                    className="h-4 w-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-900 accent-neutral-900 transition-all duration-200 hover:border-neutral-400 focus:scale-[1.01] focus:shadow-lg focus:shadow-black/5 checked:bg-amber-500"
                   />
                   I agree to the Terms of Service and Privacy Policy.
                 </label>
-                <a href="#" className="text-[13px] font-medium text-amber-500 hover:text-amber-600 transition">
-                  Forgot password?
-                </a>
               </div>
 
-              {/* Submit Button */}
-              <button
+              {/* Submit motion.Button  
+                whileHover={{
+      scale:1.02
+  }}
+  whileTap={{
+      scale:.98
+  }}
+                */}
+              <motion.button
                 type="submit"
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-neutral-950 py-3 text-[13px] font-medium text-white transition hover:bg-neutral-800 active:scale-[0.99]"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-neutral-950 py-3 text-[13px] font-medium text-white transition hover:bg-neutral-800 active:scale-[0.99] "
               >
                 Create account
                 <ArrowRight className="h-4 w-4" />
-              </button>
+              </motion.button >
             </form>
 
             {/* Divider */}
@@ -291,7 +400,14 @@ export default function Signup() {
             {/* OAuth Provider Buttons */}
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {/* Microsoft */}
-              <button className="flex items-center justify-center gap-2.5 rounded-xl border border-neutral-200 py-2 text-[13px] font-medium text-neutral-800 transition hover:bg-neutral-50 active:scale-[0.98]">
+              <motion.button
+                whileHover={{
+                  scale: 1.02
+                }}
+                whileTap={{
+                  scale: .98
+                }}
+                className="flex items-center justify-center gap-2.5 rounded-xl border border-neutral-200 py-2 text-[13px] font-medium text-neutral-800 transition hover:bg-neutral-50 active:scale-[0.98]">
                 <svg className="h-4 w-4" viewBox="0 0 23 23">
                   <path fill="#f35325" d="M0 0h11v11H0z" />
                   <path fill="#81bc06" d="M12 0h11v11H12z" />
@@ -299,10 +415,17 @@ export default function Signup() {
                   <path fill="#ffba08" d="M12 12h11v11H12z" />
                 </svg>
                 Microsoft
-              </button>
+              </motion.button >
 
               {/* Google */}
-              <button className="flex items-center justify-center gap-2.5 rounded-xl border border-neutral-200 py-2 text-[13px] font-medium text-neutral-800 transition hover:bg-neutral-50 active:scale-[0.98]">
+              <motion.button
+                whileHover={{
+                  scale: 1.02
+                }}
+                whileTap={{
+                  scale: .98
+                }}
+                className="flex items-center justify-center gap-2.5 rounded-xl border border-neutral-200 py-2 text-[13px] font-medium text-neutral-800 transition hover:bg-neutral-50 active:scale-[0.98]">
                 <svg className="h-4 w-4" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
                   <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
@@ -310,7 +433,7 @@ export default function Signup() {
                   <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
                 </svg>
                 Google
-              </button>
+              </motion.button >
             </div>
 
             {/* Footer legal text */}
@@ -324,6 +447,6 @@ export default function Signup() {
           </div>
         </div>
       </section>
-    </div>
+    </motion.div>
   );
 }

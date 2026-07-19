@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { fadeUp } from '../../../../animations/variants'
 import { Link } from 'react-router'
-const MotionLink = motion(Link)
+const MotionLink = motion.create(Link)
 
 
 const CTA = () => {

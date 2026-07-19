@@ -5,7 +5,7 @@ import heroImage from '../../../../../assets/hero-image.png'
 import { fadeUp, scaleIn, staggerContainer } from '../../../../animations/variants'
 import { Link } from 'react-router-dom'
 
-const MotionLink = motion(Link)
+const MotionLink = motion.create(Link)
 
 const Hero = () => {
   const shouldReduceMotion = useReducedMotion()
