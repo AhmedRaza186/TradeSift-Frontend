@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import Home from './layouts/Landing/Home'
 import ComingSoonModal from './components/modal/ComingSoonModal'
 import AppRoutes from './routes/Routes'
+import { Toaster } from 'sonner'
 
 const STORAGE_KEY = 'tradesift_preview_shown'
 
@@ -27,6 +28,13 @@ const App = () => {
     <>
       <ComingSoonModal isOpen={modalOpen} onClose={handleClose} />
       <AppRoutes />
+      <Toaster
+        position="top-right"
+        richColors
+        closeButton
+        duration={3000}
+        expand
+      />
     </>
   )
 }
