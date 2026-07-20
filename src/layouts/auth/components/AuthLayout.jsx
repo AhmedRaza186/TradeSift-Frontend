@@ -10,10 +10,13 @@ import AuthFooter from "./AuthFooter";
 import AuthOAButtons from "./AuthOAButtons";
 import AuthError from "./AuthError";
 import SignupForm from "./SignupForm";
+import LoginForm from "./LoginForm";
 
 const MotionLink = motion.create(Link);
 
 const AuthLayout = ({
+    mode,
+
     headerTitle,
     headerSubtitle,
 
@@ -44,6 +47,9 @@ const AuthLayout = ({
     agreedToTerms,
     setAgreedToTerms,
 
+    rememberMe,
+    setRememberMe,
+
     error,
     setError,
 
@@ -58,12 +64,18 @@ const AuthLayout = ({
             {/* Top Login Link */}
             <div className="order-last mt-8 w-full border-t border-neutral-100 pt-6 font-geist lg:order-first lg:mt-0 lg:border-0 lg:pt-0">
                 <p className="flex justify-center gap-1 text-sm text-[#6B7280]/80 lg:justify-end">
-                    Already have an account?
+                    {
+                        mode === 'signup' ? 'Already have an account?' : 'New to TradeSift?'
+                    }
                     <Link
-                        to="/login"
+                        to=   {
+                        mode === 'signup' ? '/login' : '/signup'
+                    }
                         className="text-amber-500 hover:text-amber-600 hover:underline"
                     >
-                        Sign in
+                         {
+                        mode === 'signup' ? 'Sign In' : 'Create Account'
+                    }
                     </Link>
                 </p>
             </div>
@@ -92,7 +104,7 @@ const AuthLayout = ({
 
                     <AuthHeader title={headerTitle} subtitle={headerSubtitle} />
 
-                    <SignupForm
+                    {mode === "signup" ? (<SignupForm
                         form={{
                             firstName,
                             setFirstName,
@@ -126,6 +138,34 @@ const AuthLayout = ({
                         submitBtnText={submitBtnText}
                         isSubmitBtnLoading={isSubmitBtnLoading}
                     />
+                    ) : (
+                        <LoginForm
+                            form={{
+                                email,
+                                setEmail,
+                            }}
+
+                            password={{
+                                password,
+                                setPassword,
+                                showPassword,
+                                setShowPassword,
+                            }}
+
+                            remember={{
+                                rememberMe,
+                                setRememberMe,
+                            }}
+
+                            handlers={{
+                                handleKeyDown,
+                                handleSubmit,
+                            }}
+
+                            submitBtnText={submitBtnText}
+                            isSubmitBtnLoading={isSubmitBtnLoading}
+                        />
+                    )}
 
 
 

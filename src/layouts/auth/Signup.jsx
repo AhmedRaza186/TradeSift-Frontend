@@ -6,6 +6,9 @@ import AuthHero from "./components/AuthHero";
 import AuthLayout from "./components/AuthLayout";
 
 import { fadeUp } from "../../animations/variants";
+import { handleSignupSubmit } from "./handlers/handleSignupSubmit";
+import useAutoClearError from "./hooks/useAutoClearer";
+import { handleFormNavigation } from "./handlers/handleKeyDown";
 
 
 export default function Signup() {
@@ -21,95 +24,39 @@ export default function Signup() {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [error, setError] = useState("");
 
-  const handleKeyDown = (e) => {
-    const form = e.target.form;
-    const elements = Array.from(form.elements).filter((el) => {
-      if (el.disabled || el.tabIndex === -1) return false;
-
-      // Inputs, selects and textareas
-      if ((el.tagName === 'INPUT' && el.type !== 'checkbox') || (["SELECT", "TEXTAREA"].includes(el.tagName)))
-        return true;
-
-
-      // Only include submit button
-      if (el.tagName === "BUTTON" && el.type === "submit")
-        return true;
-
-      return false;
-    });
-
-    const index = elements.indexOf(e.target);
-
-    switch (e.key) {
-      case "Enter":
-      case "ArrowDown":
-        e.preventDefault();
-        if (index < elements.length - 1) {
-          elements[index + 1].focus();
-        } else {
-          handleSubmit(e)
-        }
-        break;
-
-      case "ArrowUp":
-        e.preventDefault();
-        if (index > 0) {
-          elements[index - 1].focus();
-        }
-        break;
-    }
+  const formData = {
+    firstName,
+    lastName,
+    organizationName,
+    email,
+    password,
+    confirmPassword,
+    agreedToTerms,
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (e) =>
+    handleSignupSubmit(
+      e,
+      formData,
+      setError
+    );
 
-    const validationError = validateForm();
+  const handleKeyDown = (e) =>
+    handleFormNavigation(e, () => onSubmit(e,
+      {
+        firstName,
+        lastName,
+        organizationName,
+        email,
+        password,
+        confirmPassword,
+        agreedToTerms,
+      }
+    ));
 
-    if (validationError) {
-      setError(validationError);
-      return;
-    }
-
-    setError("");
-
-    toast.success("Account created successfully!");
-  };
-
-  useEffect(() => {
-    if (!error) return;
-
-    const timer = setTimeout(() => {
-      setError("");
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [error]);
+  useAutoClearError(error, setError)
 
 
-  const validateForm = () => {
-    if (!firstName.trim())
-      return "First name is required.";
-
-    if (!lastName.trim())
-      return "Last name is required.";
-
-    if (!email.trim())
-      return "Email is required.";
-
-    if (!/\S+@\S+\.\S+/.test(email))
-      return "Please enter a valid email.";
-
-    if (password.length < 8)
-      return "Password must be at least 8 characters.";
-
-    if (password !== confirmPassword)
-      return "Passwords do not match.";
-
-    if (!agreedToTerms)
-      return "Please accept the Terms of Service and Privacy Policy.";
-
-    return null;
-  };
   return (
     <motion.div
       variants={fadeUp}
@@ -120,6 +67,8 @@ export default function Signup() {
       <AuthHero />
 
       <AuthLayout
+        mode='signup'
+
         headerTitle='Create your account'
         headerSubtitle='Start your AI-native trade workflow in minutes.'
 
@@ -156,7 +105,7 @@ export default function Signup() {
         submitBtnText="Create Account"
         isSubmitBtnLoading={false}
 
-        handleSubmit={handleSubmit}
+        handleSubmit={onSubmit}
         handleKeyDown={handleKeyDown}
       />
 
