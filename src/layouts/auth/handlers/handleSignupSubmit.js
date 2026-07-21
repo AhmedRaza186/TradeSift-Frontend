@@ -1,5 +1,6 @@
 import { toast } from "sonner";
 import { validateSignup } from "../validations/validateSignup";
+import { Navigate } from "react-router";
 
 export const handleSignupSubmit = (
     e,
@@ -18,4 +19,7 @@ export const handleSignupSubmit = (
     setError("");
 
     toast.success("Account created successfully!");
+
+    return true
+
 };

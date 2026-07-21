@@ -9,6 +9,7 @@ import { fadeUp } from "../../animations/variants";
 import { handleSignupSubmit } from "./handlers/handleSignupSubmit";
 import useAutoClearError from "./hooks/useAutoClearer";
 import { handleFormNavigation } from "./handlers/handleKeyDown";
+import { useNavigate } from "react-router";
 
 
 export default function Signup() {
@@ -34,12 +35,25 @@ export default function Signup() {
     agreedToTerms,
   };
 
-  const onSubmit = (e) =>
-    handleSignupSubmit(
-      e,
-      formData,
-      setError
+const navigate = useNavigate();
+
+const onSubmit = (e) => {
+    const success = handleSignupSubmit(
+        e,
+        formData,
+        setError
     );
+
+    if (!success) return;
+
+    setTimeout(() => {
+        navigate("/verify-email", {
+            state: {
+                email,
+            },
+        });
+    }, 2000);
+};
 
   const handleKeyDown = (e) =>
     handleFormNavigation(e, () => onSubmit(e,
