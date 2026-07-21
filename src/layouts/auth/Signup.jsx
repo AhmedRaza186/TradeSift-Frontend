@@ -37,8 +37,8 @@ export default function Signup() {
 
 const navigate = useNavigate();
 
-const onSubmit = (e) => {
-    const success = handleSignupSubmit(
+const onSubmit = async (e) => {
+    const success = await handleSignupSubmit(
         e,
         formData,
         setError

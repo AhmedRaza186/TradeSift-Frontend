@@ -1,8 +1,8 @@
 import { toast } from "sonner";
 import { validateSignup } from "../validations/validateSignup";
-import { Navigate } from "react-router";
+import { signup } from "../services/signupServices";
 
-export const handleSignupSubmit = (
+export const handleSignupSubmit = async (
     e,
     data,
     setError,
@@ -13,13 +13,35 @@ export const handleSignupSubmit = (
 
     if (validationError) {
         setError(validationError);
-        return;
+        return false;
     }
 
-    setError("");
+    try {
+        setError("");
 
-    toast.success("Account created successfully!");
+        const response = await signup({
+            firstName: data.firstName,
+            lastName: data.lastName,
+            organisation: data.organizationName,
+            email: data.email,
+            password: data.password,
+            passwordConfirmation: data.confirmPassword,
+            agreedToTerms : data.agreedToTerms
 
-    return true
+        });
 
+        toast.success(response.message);
+
+        return true;
+
+    } catch (error) {
+        const errorMessage =
+            error.response?.data?.message ||
+            "Unable to create your account.";
+
+        setError(errorMessage);
+        toast.error(errorMessage);
+
+        return false;
+    }
 };

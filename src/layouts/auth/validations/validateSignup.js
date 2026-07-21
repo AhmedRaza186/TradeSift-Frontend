@@ -9,29 +9,64 @@ export const validateSignup = (data) => {
         agreedToTerms,
     } = data;
 
-    if (!firstName.trim())
+    // First name
+    if (!firstName.trim()) {
         return "First name is required.";
+    }
 
-    if (!lastName.trim())
+    // Last name
+    if (!lastName.trim()) {
         return "Last name is required.";
+    }
 
-    if (organizationName && organizationName.length > 100)
+    // Organization name - optional
+    if (organizationName && organizationName.trim().length > 100) {
         return "Organization name is too long.";
+    }
 
-    if (!email.trim())
+    // Email
+    if (!email.trim()) {
         return "Email is required.";
+    }
 
-    if (!/\S+@\S+\.\S+/.test(email))
+    if (!/\S+@\S+\.\S+/.test(email.trim())) {
         return "Please enter a valid email.";
+    }
 
-    if (password.length < 8)
+    // Password
+    if (!password) {
+        return "Password is required.";
+    }
+
+    if (password.length < 8) {
         return "Password must be at least 8 characters.";
+    }
 
-    if (password !== confirmPassword)
+    if (!/[A-Z]/.test(password)) {
+        return "Password must contain at least one uppercase letter.";
+    }
+
+    if (!/[0-9]/.test(password)) {
+        return "Password must contain at least one number.";
+    }
+
+    if (!/[^A-Za-z0-9]/.test(password)) {
+        return "Password must contain at least one special character.";
+    }
+
+    // Confirm password
+    if (!confirmPassword) {
+        return "Please confirm your password.";
+    }
+
+    if (password !== confirmPassword) {
         return "Passwords do not match.";
+    }
 
-    if (!agreedToTerms)
+    // Terms
+    if (!agreedToTerms) {
         return "Please accept the Terms of Service and Privacy Policy.";
+    }
 
     return null;
 };
