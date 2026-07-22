@@ -1,19 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useLocation } from "react-router";
 
 import Logo from "../../../assets/Logo.png";
 
 import { fadeUp } from "../../animations/variants";
+import { handleVerifyOtpSubmit } from "./handlers/handleVerifyOtp";
+import { handleResendOtp } from "./handlers/handleResendOtp.js";
 
 export default function OTP() {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [timer, setTimer] = useState(30);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const { state } = useLocation();
+  const navigate = useNavigate();
   const email = state?.email;
 
   const inputsRef = useRef([]);
@@ -83,25 +88,33 @@ export default function OTP() {
     inputsRef.current[Math.min(pasted.length, 5)]?.focus();
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    if (isLoading) return;
 
-    if (otp.join("").length !== 6) {
-      setError("Please enter the 6-digit verification code.");
-      return;
-    }
+    setIsLoading(true);
 
-    toast.success("Email verified successfully!");
+    const success = await handleVerifyOtpSubmit(
+      e,
+      email,
+      otp,
+      setError
+    );
+
+    setIsLoading(false);
+
+    if (!success) return;
+
+    navigate("/login");
   };
-
-  const resendCode = () => {
-    toast.success("Verification code sent.");
-
-    setTimer(30);
-    setOtp(["", "", "", "", "", ""]);
-
-    inputsRef.current[0]?.focus();
-  };
+const resendCode = async () => {
+    await handleResendOtp(
+        email,
+        setError,
+        setTimer,
+        setOtp,
+        inputsRef
+    );
+};
 
   return (
     <motion.div
@@ -192,11 +205,14 @@ focus:shadow-black/5
 
           <button
             type="submit"
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-neutral-950 py-3 text-sm font-medium text-white transition hover:bg-neutral-800"
+            disabled={isLoading}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-neutral-950 py-3 text-sm font-medium text-white transition hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Verify Email
+            {isLoading ? "Verifying..." : "Verify Email"}
 
-            <ArrowRight className="h-4 w-4" />
+            {!isLoading && (
+              <ArrowRight className="h-4 w-4" />
+            )}
           </button>
         </form>
 
