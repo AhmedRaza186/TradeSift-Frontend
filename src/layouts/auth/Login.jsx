@@ -6,10 +6,11 @@ import AuthHero from "./components/AuthHero";
 import AuthLayout from "./components/AuthLayout";
 
 import { fadeUp } from "../../animations/variants";
-import { validateSignup } from "./validations/validateSignup";
-import { handleLoginSubmit } from "./handlers/handleLoginSubmit";
+import { validateLogin } from "./validations/validateLogin";
+import { handleLoginSubmit } from "./handlers/login/handleLoginSubmit";
 import useAutoClearError from "./hooks/useAutoClearer";
 import { handleFormNavigation } from "./handlers/handleKeyDown";
+import { useNavigate } from "react-router";
 
 
 export default function Login() {
@@ -18,13 +19,16 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false)
   const [error, setError] = useState("")
+  const navigate = useNavigate();
   const formData = {
     email,
     password,
+    rememberMe
   };
 
+
   const onSubmit = (e) =>
-    handleLoginSubmit(e, formData, setError);
+    handleLoginSubmit(e, formData, setError,navigate);
 
   const handleKeyDown = (e) =>
     handleFormNavigation(e, () => onSubmit(e));

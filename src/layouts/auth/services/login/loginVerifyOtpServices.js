@@ -1,11 +1,12 @@
-import apiClient from "../../../services/apiClient";
+import apiClient from "../../../../services/apiClient";
 
-export const verifyOtp = async ({
+
+export const verifyLoginOtp = async ({
     email,
     otp,
 }) => {
     const response = await apiClient.post(
-        "/auth/register/verify-otp",
+        "/auth/login/verify-otp",
         {
             email,
             otp,
@@ -14,3 +15,4 @@ export const verifyOtp = async ({
 
     return response.data;
 };
+

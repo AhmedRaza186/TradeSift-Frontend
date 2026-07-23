@@ -1,8 +1,8 @@
 import { toast } from "sonner";
-import { resendRegistrationOtp } from "../services/resendOtpServices";
+import { resendRegistrationOtp } from "../../services/signup/resendOtpServices";
 
 
-export const handleResendOtp = async (
+export const handleResendSignupOtp = async (
     email,
     setError,
     setTimer,

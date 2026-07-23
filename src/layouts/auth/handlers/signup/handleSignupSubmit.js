@@ -1,6 +1,6 @@
 import { toast } from "sonner";
-import { validateSignup } from "../validations/validateSignup";
-import { signup } from "../services/signupServices";
+import { validateSignup } from "../../validations/validateSignup";
+import { signup } from "../../services/signup/signupServices";
 
 export const handleSignupSubmit = async (
     e,

@@ -1,18 +1,28 @@
 import { toast } from "sonner";
-import { verifyOtp } from "../services/verifyOtpServices";
+import {verifyOtp} from '../../services/signup/verifyOtpServices'
 
-export const handleVerifyOtpSubmit = async (
-    e,
+export const handleVerifySignupOtpSubmit = async (
     email,
     otp,
     setError,
+    navigate
 ) => {
-    e.preventDefault();
+    if (!email) {
+        const errorMessage = "Email address is missing.";
 
-    const otpValue = otp.join("");
+        setError(errorMessage);
+        toast.error(errorMessage);
 
-    if (otpValue.length !== 6) {
-        setError("Please enter the 6-digit verification code.");
+        return false;
+    }
+
+    if (!otp || otp.length !== 6) {
+        const errorMessage =
+            "Please enter the 6-digit verification code.";
+
+        setError(errorMessage);
+        toast.error(errorMessage);
+
         return false;
     }
 
@@ -21,12 +31,14 @@ export const handleVerifyOtpSubmit = async (
 
         const response = await verifyOtp({
             email,
-            otp: otpValue,
+            otp,
         });
 
         toast.success(
             response.message || "Registration complete."
         );
+
+        navigate("/login");
 
         return true;
 

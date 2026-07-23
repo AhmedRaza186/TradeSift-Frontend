@@ -1,4 +1,4 @@
-import apiClient from "../../../services/apiClient";
+import apiClient from "../../../../services/apiClient";
 
 export const resendRegistrationOtp = async (email) => {
     const response = await apiClient.post(

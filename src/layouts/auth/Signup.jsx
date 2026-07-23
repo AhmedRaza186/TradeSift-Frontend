@@ -6,7 +6,7 @@ import AuthHero from "./components/AuthHero";
 import AuthLayout from "./components/AuthLayout";
 
 import { fadeUp } from "../../animations/variants";
-import { handleSignupSubmit } from "./handlers/handleSignupSubmit";
+import { handleSignupSubmit } from "./handlers/signup/handleSignupSubmit";
 import useAutoClearError from "./hooks/useAutoClearer";
 import { handleFormNavigation } from "./handlers/handleKeyDown";
 import { useNavigate } from "react-router";
@@ -35,25 +35,26 @@ export default function Signup() {
     agreedToTerms,
   };
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const onSubmit = async (e) => {
+  const onSubmit = async (e) => {
     const success = await handleSignupSubmit(
-        e,
-        formData,
-        setError
+      e,
+      formData,
+      setError
     );
 
     if (!success) return;
 
     setTimeout(() => {
-        navigate("/verify-email", {
-            state: {
-                email,
-            },
-        });
+      navigate("/verify-otp", {
+        state: {
+          email,
+          mode: "signup",
+        },
+      });
     }, 2000);
-};
+  };
 
   const handleKeyDown = (e) =>
     handleFormNavigation(e, () => onSubmit(e,
