@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { toast } from "sonner";
 
 import AuthHero from "./components/AuthHero";
 import AuthLayout from "./components/AuthLayout";
 
 import { fadeUp } from "../../animations/variants";
-import { validateLogin } from "./validations/validateLogin";
 import { handleLoginSubmit } from "./handlers/login/handleLoginSubmit";
+import { handleForgotPasswordRequest } from "./handlers/forgotPass/handleForgotPasswordRequest";
 import useAutoClearError from "./hooks/useAutoClearer";
 import { handleFormNavigation } from "./handlers/handleKeyDown";
 import { useNavigate } from "react-router";
@@ -28,11 +27,17 @@ export default function Login() {
 
 
   const onSubmit = (e) =>
-    handleLoginSubmit(e, formData, setError,navigate);
+    handleLoginSubmit(e, formData, setError, navigate);
 
   const handleKeyDown = (e) =>
     handleFormNavigation(e, () => onSubmit(e));
 
+  const handleForgotPassword = () =>
+    handleForgotPasswordRequest(
+      email,
+      setError,
+      navigate
+    );
 
   useAutoClearError(error, setError)
 
@@ -72,6 +77,10 @@ export default function Login() {
 
         handleSubmit={onSubmit}
         handleKeyDown={handleKeyDown}
+        // Add this
+        handleForgotPassword={handleForgotPassword}
+      
+          
       />
     </motion.div>
   );

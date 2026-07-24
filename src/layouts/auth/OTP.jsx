@@ -10,6 +10,8 @@ import { handleVerifyLoginOtp } from "./handlers/login/handleVerifyLoginOtp";
 import { handleVerifySignupOtpSubmit } from "./handlers/signup/handleVerifySignupOtp";
 import { handleResendLoginOtp } from "./handlers/login/handleResendLoginOtp";
 import { handleResendSignupOtp } from "./handlers/signup/handleResendSignupOtp";
+import { handleVerifyForgotPasswordOtp } from "./handlers/forgotPass/handleVerifyForgotPasswordOtp";
+import { handleResendForgotPasswordOtp } from "./handlers/forgotPass/handleResendForgotPassword";
 
 
 export default function OTP() {
@@ -34,6 +36,7 @@ export default function OTP() {
     const inputsRef = useRef([]);
 
     const isLogin = mode === "login";
+    const isForgotPassword = mode === "forgot-password";
 
     useEffect(() => {
         inputsRef.current[0]?.focus();
@@ -104,35 +107,42 @@ export default function OTP() {
         ]?.focus();
     };
 
-const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    const otpValue = otp.join("");
+        const otpValue = otp.join("");
 
-    if (otpValue.length !== 6) {
-        setError(
-            "Please enter the 6-digit verification code."
-        );
+        if (otpValue.length !== 6) {
+            setError(
+                "Please enter the 6-digit verification code."
+            );
 
-        return;
-    }
+            return;
+        }
 
-    const success = isLogin
-        ? await handleVerifyLoginOtp(
-            email,
-            otpValue,
-            setError,
-            navigate
-        )
-        : await handleVerifySignupOtpSubmit(
-            email,
-            otpValue,
-            setError,
-            navigate
-        );
+        const success = isLogin
+            ? await handleVerifyLoginOtp(
+                email,
+                otpValue,
+                setError,
+                navigate
+            )
+            : isForgotPassword
+                ? await handleVerifyForgotPasswordOtp(
+                    email,
+                    otpValue,
+                    setError,
+                    navigate
+                )
+                : await handleVerifySignupOtpSubmit(
+                    email,
+                    otpValue,
+                    setError,
+                    navigate
+                );
 
-    if (!success) return;
-};
+        if (!success) return;
+    };
 
     const resendCode = async () => {
         const success = isLogin
@@ -140,10 +150,15 @@ const handleSubmit = async (e) => {
                 email,
                 setError
             )
-            : await handleResendSignupOtp(
-                email,
-                setError
-            );
+            : isForgotPassword
+                ? await handleResendForgotPasswordOtp(
+                    email,
+                    setError
+                )
+                : await handleResendSignupOtp(
+                    email,
+                    setError
+                );
 
         if (!success) return;
 
@@ -189,7 +204,9 @@ const handleSubmit = async (e) => {
                     <h1 className="font-geist text-3xl font-bold text-neutral-900">
                         {isLogin
                             ? "Verify your login"
-                            : "Verify your email"
+                            : isForgotPassword
+                                ? "Verify your identity"
+                                : "Verify your email"
                         }
                     </h1>
 
@@ -249,7 +266,10 @@ const handleSubmit = async (e) => {
                     >
                         {isLogin
                             ? "Verify Login"
-                            : "Verify Email"}
+                            : isForgotPassword
+                                ? "Verify Code"
+                                : "Verify Email"
+                        }
 
                         <ArrowRight className="h-4 w-4" />
                     </button>
@@ -278,13 +298,21 @@ const handleSubmit = async (e) => {
 
                 <div className="mt-8 text-center">
                     <Link
-                        to={isLogin ? "/login" : "/signup"}
-                        className="text-sm text-neutral-500 hover:text-neutral-800"
+                        to={
+                            isLogin
+                                ? "/login"
+                                : isForgotPassword
+                                    ? "/login"
+                                    : "/signup"
+                        }
                     >
                         ← Back to{" "}
                         {isLogin
                             ? "Login"
-                            : "Signup"}
+                            : isForgotPassword
+                                ? "Login"
+                                : "Signup"
+                        }
                     </Link>
                 </div>
             </div>

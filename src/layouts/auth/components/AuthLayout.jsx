@@ -57,6 +57,7 @@ const AuthLayout = ({
     isSubmitBtnLoading,
     handleSubmit,
     handleKeyDown,
+    handleForgotPassword,
 }) => {
     return (
         <section className="flex h-full w-full lg:w-[58%] flex-col overflow-y-auto bg-white px-5 py-5 sm:px-8 lg:px-10 xl:px-14">
@@ -160,6 +161,7 @@ const AuthLayout = ({
                             handlers={{
                                 handleKeyDown,
                                 handleSubmit,
+                                handleForgotPassword,
                             }}
 
                             submitBtnText={submitBtnText}

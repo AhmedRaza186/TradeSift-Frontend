@@ -5,6 +5,7 @@ import Login from '../layouts/auth/Login'
 import Signup from '../layouts/auth/Signup'
 import OTP from '../layouts/auth/OTP'
 import dashboard from '../layouts/Dashboard/dashboard'
+import ResetPassword from '../layouts/auth/ResetPassword'
 
 const AppRoutes = () => {
   return (
@@ -13,6 +14,7 @@ const AppRoutes = () => {
 
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/verify-otp" element={<OTP />} />
       <Route path="/dashboard" element={<dashboard />} />
     </Routes>

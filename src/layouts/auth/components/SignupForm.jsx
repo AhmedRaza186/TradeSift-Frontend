@@ -108,6 +108,29 @@ const SignupForm = ({
                     onKeyDown={handleKeyDown}
                 />
 
+                {/* Live password requirements */}
+                <div className="rounded-lg border border-neutral-100 bg-neutral-50 px-3.5 py-3 text-xs">
+                    <p className="mb-1.5 font-medium text-neutral-600">Password must contain:</p>
+                    <ul className="space-y-1">
+                        <li className={`flex items-center gap-1.5 transition-colors duration-200 ${passwordValue.length >= 8 ? "text-green-600" : "text-neutral-400"}`}>
+                            <span className="w-3 text-center font-bold">{passwordValue.length >= 8 ? "✓" : "•"}</span>
+                            At least 8 characters
+                        </li>
+                        <li className={`flex items-center gap-1.5 transition-colors duration-200 ${/[A-Z]/.test(passwordValue) ? "text-green-600" : "text-neutral-400"}`}>
+                            <span className="w-3 text-center font-bold">{/[A-Z]/.test(passwordValue) ? "✓" : "•"}</span>
+                            One uppercase letter
+                        </li>
+                        <li className={`flex items-center gap-1.5 transition-colors duration-200 ${/[0-9]/.test(passwordValue) ? "text-green-600" : "text-neutral-400"}`}>
+                            <span className="w-3 text-center font-bold">{/[0-9]/.test(passwordValue) ? "✓" : "•"}</span>
+                            One number
+                        </li>
+                        <li className={`flex items-center gap-1.5 transition-colors duration-200 ${/[^A-Za-z0-9]/.test(passwordValue) ? "text-green-600" : "text-neutral-400"}`}>
+                            <span className="w-3 text-center font-bold">{/[^A-Za-z0-9]/.test(passwordValue) ? "✓" : "•"}</span>
+                            One special character
+                        </li>
+                    </ul>
+                </div>
+
                 <PasswordInput
                     id="confirmPassword"
                     label="Confirm Password"

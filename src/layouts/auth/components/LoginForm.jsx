@@ -1,5 +1,4 @@
 import { Mail } from "lucide-react";
-import { Link } from "react-router";
 
 import TextInput from "./TextInput";
 import PasswordInput from "./PasswordInput";
@@ -34,6 +33,7 @@ const LoginForm = ({
     const {
         handleKeyDown,
         handleSubmit,
+        handleForgotPassword,
     } = handlers;
 
     return (
@@ -71,12 +71,13 @@ const LoginForm = ({
                     label="Remember me"
                 />
 
-                <Link
-                    to="/forgot-password"
+                <button
+                    type="button"
+                    onClick={handleForgotPassword}
                     className="text-[13px] font-medium text-amber-500 transition hover:text-amber-600"
                 >
                     Forgot password?
-                </Link>
+                </button>
             </div>
 
             <SubmitButton
